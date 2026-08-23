@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>NordWood78 — пиломатериалы от производителя в Санкт-Петербурге</title>
+<meta content="Производство и продажа имитации бруса, доски пола, вагонки, бруса, блок-хауса и доски обрезной. Камерная сушка, строжка на Weinig Hydromat. Две базы в Ленинградской области, доставка по СПб и ЛО." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,600;0,800;1,400&amp;family=Golos+Text:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<style>
+/* ============================================================
+   NordWood78 — лендинг
+   Токены: цвет / типографика / сетка
+   ============================================================ */
+:root{
+  --green:#188b30;          /* фирменный зелёный */
+  --green-deep:#0e5c21;
+  --green-dark:#0a3d17;
+  --bark:#17211b;           /* тёмный фон секций */
+  --bark-2:#1f2b23;
+  --ink:#23201c;
+  --ink-soft:#5b544c;
+  --paper:#ffffff;
+  --sand:#f7f2e8;           /* тёплый фон страницы */
+  --pine:#e7d3ae;           /* цвет сосны */
+  --pine-2:#f2e5cc;
+  --line:#e3dccd;
+  --line-dark:#33413a;
+  --stamp:#a63a1e;          /* цвет клейма сортировки */
+
+  --f-display:'Bitter', Georgia, 'Times New Roman', serif;
+  --f-body:'Golos Text', -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --f-mono:'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+
+  --wrap:1240px;
+  --r:4px;
+
+  /* Фото склада пиломатериалов на первом экране.
+     Сейчас снимок вшит в файл (base64), чтобы страница работала автономно.
+     На боевом сайте лучше положить рядом файл nordwood-hero-sklad.jpg и заменить строку ниже на:
+       --hero-photo:url('/upload/CNext/nordwood-hero-sklad.jpg'); */
+  --hero-photo:url('upload/hero-sklad.jpg');
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:var(--f-body);
+  font-size:16px;
+  line-height:1.6;
+  color:var(--ink);
+  background:var(--sand);
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:800;line-height:1.1;margin:0;letter-spacing:-.01em;}
+p{margin:0 0 1em;}
+:focus-visible{outline:3px solid var(--green);outline-offset:3px;}
+
+.nw-wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px;}
+.nw-section{padding:88px 0;}
+.nw-section--tight{padding:64px 0;}
+.nw-section--dark{background:var(--bark);color:#efe9dc;}
+.nw-section--paper{background:var(--paper);}
+
+/* ---------- служебная типографика: бирка / обмер ---------- */
+.nw-eyebrow{
+  font-family:var(--f-mono);
+  font-size:12px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--green);
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:18px;
+}
+.nw-eyebrow::after{content:"";flex:1;height:1px;background:var(--line);}
+.nw-section--dark .nw-eyebrow{color:var(--pine);}
+.nw-section--dark .nw-eyebrow::after{background:var(--line-dark);}
+.nw-h2{font-size:clamp(28px,3.6vw,46px);max-width:22ch;}
+.nw-lead{font-size:clamp(16px,1.5vw,19px);color:var(--ink-soft);max-width:62ch;}
+.nw-section--dark .nw-lead{color:#c3bcaf;}
+.nw-dim{font-family:var(--f-mono);font-size:13px;letter-spacing:.02em;}
+
+/* ---------- кнопки ---------- */
+.nw-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  font-family:var(--f-body);font-weight:600;font-size:15px;
+  padding:15px 26px;border-radius:var(--r);border:1.5px solid transparent;
+  cursor:pointer;transition:background .18s ease,color .18s ease,border-color .18s ease,transform .12s ease;
+  text-align:center;
+}
+.nw-btn:active{transform:translateY(1px);}
+.nw-btn--primary{background:var(--green);color:#fff;}
+.nw-btn--primary:hover{background:var(--green-deep);}
+.nw-btn--ghost{border-color:currentColor;color:var(--ink);background:transparent;}
+.nw-btn--ghost:hover{background:var(--ink);color:var(--sand);}
+.nw-section--dark .nw-btn--ghost{color:#efe9dc;}
+.nw-section--dark .nw-btn--ghost:hover{background:#efe9dc;color:var(--bark);}
+.nw-btn--light{background:var(--pine);color:var(--bark);}
+.nw-btn--light:hover{background:#fff;}
+
+/* ============================================================
+   1. Промо-полоса
+   ============================================================ */
+.nw-promo{background:var(--bark);color:#efe9dc;border-bottom:1px solid var(--line-dark);}
+.nw-promo__grid{display:grid;grid-template-columns:repeat(3,1fr);}
+.nw-promo__item{
+  padding:14px 24px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  border-right:1px solid var(--line-dark);
+}
+.nw-promo__item:last-child{border-right:0;}
+.nw-promo__name{font-size:14px;color:#c3bcaf;}
+.nw-promo__price{font-family:var(--f-mono);font-weight:700;font-size:15px;color:var(--pine);white-space:nowrap;}
+
+/* ============================================================
+   2. Шапка
+   ============================================================ */
+.nw-header{position:sticky;top:0;z-index:60;background:var(--paper);border-bottom:1px solid var(--line);}
+.nw-header__top{display:flex;align-items:center;gap:28px;padding:14px 0;}
+.nw-logo{display:flex;align-items:center;gap:13px;flex-shrink:0;}
+.nw-logo img{height:52px;width:auto;}
+.nw-logo__mark{width:46px;height:46px;flex:0 0 46px;}
+.nw-logo__word{
+  display:flex;flex-direction:column;
+  font-family:var(--f-display);font-weight:800;font-size:21px;line-height:1.04;
+  color:var(--green);letter-spacing:.05em;text-transform:uppercase;
+}
+.nw-logo__slogan{
+  font-family:var(--f-body);font-weight:500;font-size:12.5px;line-height:1.35;
+  color:var(--ink-soft);padding-left:13px;border-left:1px solid var(--line);
+}
+.nw-header__phones{margin-left:auto;display:flex;gap:26px;}
+.nw-phone{line-height:1.25;}
+.nw-phone a{font-family:var(--f-mono);font-weight:700;font-size:16px;white-space:nowrap;}
+.nw-phone a:hover{color:var(--green);}
+.nw-phone span{display:block;font-size:11px;color:var(--ink-soft);letter-spacing:.04em;text-transform:uppercase;}
+.nw-header__soc{display:flex;gap:8px;}
+.nw-soc{
+  width:36px;height:36px;border:1px solid var(--line);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;color:var(--green);
+  transition:background .18s ease,color .18s ease,border-color .18s ease;
+}
+.nw-soc:hover{background:var(--green);color:#fff;border-color:var(--green);}
+.nw-soc svg{width:17px;height:17px;fill:currentColor;}
+.nw-nav{background:var(--green);}
+.nw-nav__list{display:flex;list-style:none;margin:0;padding:0;flex-wrap:wrap;}
+.nw-nav__list a{
+  display:block;padding:14px 18px;color:#fff;font-size:14px;font-weight:500;
+  border-right:1px solid rgba(255,255,255,.16);transition:background .18s ease;
+}
+.nw-nav__list li:first-child a{border-left:1px solid rgba(255,255,255,.16);}
+.nw-nav__list a:hover{background:var(--green-deep);}
+.nw-burger{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;cursor:pointer;}
+.nw-burger span{display:block;width:20px;height:2px;background:var(--ink);margin:4px 0;}
+
+/* ============================================================
+   3. Первый экран
+   ============================================================ */
+.nw-hero{
+  background:var(--bark);
+  color:#efe9dc;
+  position:relative;
+  overflow:hidden;
+  padding:76px 0 0;
+}
+/* ФОН: фото склада пиломатериалов.
+   Замените адрес в переменной --hero-photo на свою фотографию базы. */
+.nw-hero__bg{
+  position:absolute;inset:0;z-index:0;
+  background-image:
+    var(--hero-photo),
+    repeating-linear-gradient(90deg,rgba(0,0,0,.38) 0 3px,transparent 3px 150px),
+    repeating-linear-gradient(180deg,#cdad72 0 11px,#9d7f4a 11px 14px);
+  background-size:cover,auto,auto;
+  background-position:center;
+  background-repeat:no-repeat,repeat,repeat;
+  filter:brightness(.5) saturate(.9) contrast(1.06);
+}
+.nw-hero__veil{ /* затемняем только левую часть — под текстом */
+  position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(96deg,rgba(23,33,27,.95) 0%,rgba(23,33,27,.88) 32%,rgba(23,33,27,.52) 54%,rgba(23,33,27,.16) 74%,rgba(23,33,27,.32) 100%),
+    linear-gradient(180deg,rgba(23,33,27,.6) 0%,transparent 24%,transparent 60%,rgba(23,33,27,.88) 100%);
+}
+.nw-hero::before{ /* текстура распила поверх фото */
+  content:"";position:absolute;inset:0;z-index:2;
+  background:repeating-linear-gradient(94deg,rgba(255,255,255,.028) 0 2px,transparent 2px 9px);
+  pointer-events:none;
+}
+.nw-hero > .nw-wrap{position:relative;z-index:3;}
+.nw-hero__grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;position:relative;}
+.nw-hero h1{font-size:clamp(34px,5vw,62px);line-height:1.03;margin-bottom:22px;}
+.nw-hero h1 em{font-style:normal;color:var(--pine);}
+.nw-hero__sub{font-size:clamp(16px,1.6vw,19px);color:#c3bcaf;max-width:52ch;margin-bottom:30px;}
+.nw-hero__cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:34px;}
+.nw-hero__marks{display:flex;flex-wrap:wrap;gap:10px;padding-bottom:56px;}
+.nw-mark{
+  font-family:var(--f-mono);font-size:12px;letter-spacing:.04em;
+  border:1px solid var(--line-dark);border-radius:100px;padding:7px 14px;color:#c3bcaf;
+}
+.nw-mark b{color:var(--pine);font-weight:700;}
+
+/* штабель досок — визуальная подпись страницы */
+.nw-stack{position:relative;padding:24px 0 70px;}
+.nw-board{
+  height:52px;border-radius:3px;margin-bottom:10px;position:relative;
+  background:linear-gradient(180deg,#f3e2c4 0%,#e2c99f 42%,#d8bb8b 100%);
+  box-shadow:0 10px 22px rgba(0,0,0,.32);
+  display:flex;align-items:center;padding:0 18px;
+}
+.nw-board::after{ /* торцевые волокна */
+  content:"";position:absolute;inset:0;border-radius:3px;
+  background:repeating-linear-gradient(90deg,rgba(120,85,40,.10) 0 1px,transparent 1px 14px);
+}
+.nw-board__label{
+  font-family:var(--f-mono);font-size:12px;font-weight:700;color:#6d5122;letter-spacing:.06em;position:relative;z-index:1;
+}
+.nw-board__grade{
+  margin-left:auto;font-family:var(--f-mono);font-size:11px;font-weight:700;
+  color:var(--stamp);border:1.5px solid var(--stamp);border-radius:2px;padding:2px 7px;
+  position:relative;z-index:1;opacity:.85;transform:rotate(-2deg);
+}
+.nw-board:nth-child(1){width:100%;}
+.nw-board:nth-child(2){width:94%;}
+.nw-board:nth-child(3){width:98%;}
+.nw-board:nth-child(4){width:90%;height:64px;}
+.nw-tag{
+  position:absolute;right:6px;bottom:6px;background:var(--pine);color:var(--bark);
+  border-radius:3px;padding:12px 16px;transform:rotate(-3deg);
+  box-shadow:0 12px 26px rgba(0,0,0,.4);max-width:230px;
+}
+.nw-tag__t{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--green-deep);}
+.nw-tag__v{font-family:var(--f-display);font-weight:800;font-size:19px;line-height:1.15;margin-top:2px;}
+
+/* лента фактов */
+.nw-facts{border-top:1px solid var(--line-dark);position:relative;z-index:3;background:rgba(23,33,27,.55);}
+.nw-facts__grid{display:grid;grid-template-columns:repeat(4,1fr);}
+.nw-fact{padding:26px 26px;border-right:1px solid var(--line-dark);}
+.nw-fact:last-child{border-right:0;}
+.nw-fact__n{font-family:var(--f-display);font-weight:800;font-size:34px;color:var(--pine);line-height:1;}
+.nw-fact__d{font-size:13px;color:#a9a196;margin-top:8px;}
+
+/* ============================================================
+   4. Каталог
+   ============================================================ */
+.nw-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:40px;flex-wrap:wrap;}
+.nw-cats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+.nw-cat{
+  background:var(--paper);padding:22px 20px;display:flex;gap:14px;align-items:flex-start;
+  transition:background .18s ease;
+}
+.nw-cat:hover{background:var(--pine-2);}
+.nw-cat__ico{width:46px;height:46px;flex:0 0 46px;border-radius:3px;background:var(--pine-2);object-fit:cover;}
+.nw-cat__n{font-weight:600;font-size:15px;line-height:1.3;}
+.nw-cat__d{font-size:12.5px;color:var(--ink-soft);line-height:1.45;margin-top:5px;}
+.nw-cat__p{font-family:var(--f-mono);font-size:12px;color:var(--green);margin-top:7px;font-weight:700;}
+
+/* ============================================================
+   5. Хиты — карточки товаров
+   ============================================================ */
+.nw-goods{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+.nw-good{background:var(--paper);padding:0 0 18px;display:flex;flex-direction:column;position:relative;}
+.nw-good__img{
+  aspect-ratio:4/3;background:linear-gradient(160deg,#f4e7cf,#e3cda4);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.nw-good__img img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;}
+.nw-good__badges{position:absolute;top:10px;left:10px;display:flex;flex-direction:column;gap:5px;z-index:2;}
+.nw-badge{
+  font-family:var(--f-mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 8px;border-radius:2px;background:var(--green);color:#fff;
+}
+.nw-badge--adv{background:var(--stamp);}
+.nw-badge--new{background:var(--bark);}
+.nw-good__body{padding:16px 18px 0;display:flex;flex-direction:column;flex:1;}
+.nw-good__n{font-weight:600;font-size:14.5px;line-height:1.35;min-height:3.9em;}
+.nw-good__dim{font-family:var(--f-mono);font-size:11.5px;color:var(--ink-soft);letter-spacing:.03em;margin-top:6px;}
+.nw-good__stock{font-size:12px;color:var(--green);margin-top:10px;display:flex;align-items:center;gap:6px;}
+.nw-good__stock::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);}
+.nw-good__price{
+  font-family:var(--f-display);font-weight:800;font-size:24px;margin-top:12px;
+}
+.nw-good__price span{font-family:var(--f-body);font-weight:500;font-size:13px;color:var(--ink-soft);}
+.nw-good__btn{margin-top:14px;padding:11px 14px;font-size:14px;width:100%;}
+
+/* ============================================================
+   6. Калькулятор
+   ============================================================ */
+.nw-calc{display:grid;grid-template-columns:1.02fr 1fr;gap:0;border:1px solid var(--line-dark);}
+.nw-calc__form{padding:36px;background:var(--bark-2);}
+.nw-calc__out{padding:36px;background:var(--pine);color:var(--bark);}
+.nw-field{margin-bottom:20px;}
+.nw-field label{
+  display:block;font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--pine);margin-bottom:8px;
+}
+.nw-field select,.nw-field input{
+  width:100%;padding:14px 14px;font-family:var(--f-body);font-size:15px;
+  background:var(--bark);color:#efe9dc;border:1px solid var(--line-dark);border-radius:var(--r);
+}
+.nw-field select:hover,.nw-field input:hover{border-color:var(--green);}
+.nw-seg{display:flex;gap:0;border:1px solid var(--line-dark);border-radius:var(--r);overflow:hidden;}
+.nw-seg button{
+  flex:1;padding:12px 8px;background:var(--bark);color:#c3bcaf;border:0;cursor:pointer;
+  font-family:var(--f-body);font-size:14px;font-weight:500;transition:background .18s ease,color .18s ease;
+}
+.nw-seg button[aria-pressed="true"]{background:var(--green);color:#fff;}
+.nw-calc__note{font-size:12.5px;color:#a9a196;margin:0;}
+.nw-out__row{display:flex;justify-content:space-between;align-items:baseline;padding:13px 0;border-bottom:1px dashed rgba(23,33,27,.28);gap:16px;}
+.nw-out__row:last-of-type{border-bottom:0;}
+.nw-out__k{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--green-dark);}
+.nw-out__v{font-family:var(--f-display);font-weight:800;font-size:21px;}
+.nw-out__total{margin-top:14px;padding-top:18px;border-top:2px solid var(--bark);}
+.nw-out__total .nw-out__v{font-size:36px;}
+
+/* ============================================================
+   7. Производство — этапы
+   ============================================================ */
+.nw-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-dark);border:1px solid var(--line-dark);}
+.nw-step{background:var(--bark);padding:30px 26px 34px;}
+.nw-step__n{font-family:var(--f-mono);font-size:12px;color:var(--green);letter-spacing:.2em;margin-bottom:16px;}
+.nw-step h3{font-size:20px;margin-bottom:10px;color:var(--pine);}
+.nw-step p{font-size:14px;color:#b6afa3;margin:0;line-height:1.6;}
+
+/* ============================================================
+   8. Сорта — таблица
+   ============================================================ */
+.nw-table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);font-size:14.5px;}
+.nw-table th,.nw-table td{padding:16px 18px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;}
+.nw-table thead th{
+  background:var(--bark);color:var(--pine);font-family:var(--f-mono);font-size:12px;
+  letter-spacing:.1em;text-transform:uppercase;font-weight:500;
+}
+.nw-table tbody tr:last-child td{border-bottom:0;}
+.nw-table td:first-child{font-weight:600;width:19%;}
+.nw-table .nw-grade{
+  display:inline-block;font-family:var(--f-mono);font-weight:700;font-size:12px;
+  border:1.5px solid var(--stamp);color:var(--stamp);border-radius:2px;padding:2px 8px;margin-bottom:6px;
+}
+
+/* ============================================================
+   9. Услуги: покраска / дома
+   ============================================================ */
+.nw-split{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+.nw-service{background:var(--paper);padding:38px 34px;}
+.nw-service h3{font-size:26px;margin-bottom:14px;}
+.nw-service__price{font-family:var(--f-mono);font-size:14px;font-weight:700;color:var(--green);margin-bottom:16px;}
+.nw-list{list-style:none;padding:0;margin:0 0 22px;}
+.nw-list li{position:relative;padding-left:26px;margin-bottom:10px;font-size:15px;color:var(--ink-soft);}
+.nw-list li::before{
+  content:"";position:absolute;left:0;top:9px;width:12px;height:2px;background:var(--green);
+}
+.nw-section--dark .nw-list li{color:#c3bcaf;}
+
+/* ============================================================
+   10. Доставка / базы
+   ============================================================ */
+.nw-bases{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:28px;}
+.nw-base{background:var(--bark-2);border:1px solid var(--line-dark);padding:28px;border-radius:var(--r);}
+.nw-base h3{font-size:22px;color:var(--pine);margin-bottom:6px;}
+.nw-base__addr{font-size:14.5px;color:#c3bcaf;margin-bottom:14px;}
+.nw-base__phone{font-family:var(--f-mono);font-weight:700;font-size:19px;color:#efe9dc;display:inline-block;margin-bottom:14px;}
+.nw-base__phone:hover{color:var(--green);}
+.nw-hint{font-size:13px;color:#a9a196;border-left:2px solid var(--green);padding-left:12px;}
+.nw-delivery{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-dark);border:1px solid var(--line-dark);}
+.nw-delivery__i{background:var(--bark);padding:26px;}
+.nw-delivery__i h4{font-family:var(--f-display);font-size:17px;color:var(--pine);margin-bottom:8px;}
+.nw-delivery__i p{font-size:14px;color:#b6afa3;margin:0;}
+
+/* ============================================================
+   11. Опт / B2B
+   ============================================================ */
+.nw-b2b{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+.nw-b2b__cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.nw-b2b__card{background:var(--paper);border:1px solid var(--line);padding:22px;border-radius:var(--r);}
+.nw-b2b__card b{display:block;font-family:var(--f-display);font-size:19px;margin-bottom:6px;}
+.nw-b2b__card span{font-size:13.5px;color:var(--ink-soft);}
+
+/* ============================================================
+   12. Отзывы
+   ============================================================ */
+.nw-reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.nw-review{background:var(--paper);border:1px solid var(--line);padding:26px;border-radius:var(--r);display:flex;flex-direction:column;}
+.nw-stars{color:#f0a500;letter-spacing:2px;font-size:15px;margin-bottom:12px;}
+.nw-review p{font-size:14.5px;line-height:1.65;flex:1;}
+.nw-review__a{font-size:13px;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:12px;margin-top:6px;}
+.nw-rating{
+  display:flex;align-items:center;gap:16px;background:var(--bark);color:#efe9dc;
+  padding:20px 26px;border-radius:var(--r);margin-top:26px;flex-wrap:wrap;
+}
+.nw-rating__n{font-family:var(--f-display);font-weight:800;font-size:40px;color:var(--pine);line-height:1;}
+
+/* ============================================================
+   13. FAQ
+   ============================================================ */
+.nw-faq{border-top:1px solid var(--line);}
+.nw-faq__i{border-bottom:1px solid var(--line);}
+.nw-faq__q{
+  width:100%;background:none;border:0;padding:22px 44px 22px 0;text-align:left;cursor:pointer;
+  font-family:var(--f-display);font-weight:600;font-size:18px;color:var(--ink);position:relative;
+}
+.nw-faq__q::after{
+  content:"+";position:absolute;right:8px;top:50%;transform:translateY(-50%);
+  font-family:var(--f-mono);font-size:22px;color:var(--green);transition:transform .2s ease;
+}
+.nw-faq__i.is-open .nw-faq__q::after{content:"–";}
+.nw-faq__a{display:none;padding:0 60px 24px 0;color:var(--ink-soft);font-size:15px;}
+.nw-faq__i.is-open .nw-faq__a{display:block;}
+
+/* ============================================================
+   14. Форма заявки
+   ============================================================ */
+.nw-cta{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+.nw-form{background:var(--paper);border:1px solid var(--line);padding:34px;border-radius:var(--r);}
+.nw-form .nw-field label{color:var(--ink-soft);}
+.nw-form .nw-field input,.nw-form .nw-field textarea,.nw-form .nw-field select{
+  background:var(--sand);color:var(--ink);border:1px solid var(--line);
+  width:100%;padding:14px;border-radius:var(--r);font-family:var(--f-body);font-size:15px;
+}
+.nw-form textarea{resize:vertical;min-height:96px;}
+.nw-form__row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.nw-agree{font-size:12.5px;color:var(--ink-soft);display:flex;gap:9px;align-items:flex-start;margin:16px 0 20px;}
+.nw-agree input{margin-top:3px;flex:0 0 auto;}
+.nw-form__ok{
+  display:none;background:var(--green);color:#fff;padding:14px 18px;border-radius:var(--r);
+  font-size:14.5px;margin-top:16px;
+}
+.nw-form__ok.is-visible{display:block;}
+
+/* ============================================================
+   15. Контакты / карта / подвал
+   ============================================================ */
+.nw-map{height:420px;width:100%;border:0;display:block;filter:saturate(.9);}
+.nw-footer{background:var(--bark);color:#b6afa3;padding:56px 0 28px;}
+.nw-footer__grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1.2fr;gap:36px;}
+.nw-footer h4{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--pine);margin-bottom:16px;font-weight:500;}
+.nw-footer ul{list-style:none;padding:0;margin:0;}
+.nw-footer li{margin-bottom:9px;font-size:14px;}
+.nw-footer a:hover{color:var(--green);}
+.nw-footer__bottom{
+  border-top:1px solid var(--line-dark);margin-top:40px;padding-top:22px;
+  display:flex;justify-content:space-between;gap:20px;font-size:13px;flex-wrap:wrap;
+}
+.nw-footer .nw-logo__word{color:var(--pine);}
+.nw-footer .nw-logo__slogan{color:#8d867c;border-left-color:var(--line-dark);}
+
+/* плавающая кнопка звонка (мобильные) */
+.nw-fab{
+  display:none;position:fixed;left:16px;right:16px;bottom:16px;z-index:70;
+  box-shadow:0 12px 30px rgba(0,0,0,.28);
+}
+
+/* ============================================================
+   Адаптив
+   ============================================================ */
+@media (max-width:1100px){
+  .nw-cats{grid-template-columns:repeat(3,1fr);}
+  .nw-goods{grid-template-columns:repeat(3,1fr);}
+  .nw-steps{grid-template-columns:repeat(2,1fr);}
+  .nw-facts__grid{grid-template-columns:repeat(2,1fr);}
+  .nw-fact{border-bottom:1px solid var(--line-dark);}
+}
+@media (max-width:900px){
+  .nw-section{padding:60px 0;}
+  /* Заголовок секции и лид перестают делить строку — идут друг под другом */
+  .nw-head{flex-direction:column;align-items:flex-start;gap:14px;margin-bottom:28px;}
+  .nw-head > *{width:100%;}
+  .nw-h2,
+  .nw-head .nw-lead{max-width:none !important;}
+  .nw-h2{font-size:clamp(25px,6.2vw,34px);}
+  .nw-head .nw-lead{font-size:15.5px;}
+  .nw-eyebrow{margin-bottom:12px;}
+  .nw-hero{padding-top:48px;}
+  .nw-hero__grid{grid-template-columns:1fr;gap:24px;}
+  .nw-stack{padding-bottom:40px;}
+  .nw-promo__grid{grid-template-columns:1fr;}
+  .nw-promo__item{border-right:0;border-bottom:1px solid var(--line-dark);}
+  .nw-header__phones{display:none;}
+  .nw-header__soc{display:none;}
+  .nw-hero__bg{filter:brightness(.45) saturate(.9);}
+  .nw-hero__veil{background:linear-gradient(180deg,rgba(23,33,27,.86) 0%,rgba(23,33,27,.8) 55%,rgba(23,33,27,.94) 100%);}
+  .nw-burger{display:block;}
+  .nw-nav{display:none;}
+  .nw-nav.is-open{display:block;}
+  .nw-nav__list{flex-direction:column;}
+  .nw-nav__list a{border-right:0;border-bottom:1px solid rgba(255,255,255,.16);}
+  .nw-nav__list li:first-child a{border-left:0;}
+  .nw-calc,.nw-cta,.nw-b2b,.nw-split,.nw-bases{grid-template-columns:1fr;gap:0;}
+  .nw-bases{gap:16px;margin-bottom:16px;}
+  .nw-b2b,.nw-cta{gap:36px;}
+  .nw-delivery{grid-template-columns:1fr;}
+  .nw-reviews{grid-template-columns:1fr;}
+  .nw-footer__grid{grid-template-columns:1fr 1fr;}
+  .nw-fab{display:flex;}
+  body{padding-bottom:76px;}
+}
+@media (max-width:640px){
+  .nw-logo__slogan{display:none;}
+  .nw-header .nw-logo__word{font-size:19px;}
+  .nw-cats{grid-template-columns:1fr 1fr;}
+  .nw-cat{padding:15px 12px;gap:10px;}
+  .nw-cat__ico{width:36px;height:36px;flex:0 0 36px;}
+  .nw-cat__n{font-size:13.5px;line-height:1.25;}
+  .nw-cat__d{font-size:11.5px;line-height:1.4;margin-top:4px;}
+  .nw-cat__p{font-size:11px;margin-top:6px;}
+  .nw-eyebrow{font-size:11px;letter-spacing:.12em;}
+  .nw-goods{grid-template-columns:1fr 1fr;}
+  .nw-steps{grid-template-columns:1fr;}
+  .nw-facts__grid{grid-template-columns:1fr;}
+  .nw-form__row{grid-template-columns:1fr;}
+  .nw-b2b__cards{grid-template-columns:1fr;}
+  .nw-good__n{min-height:0;}
+  .nw-table td:first-child{width:auto;}
+  .nw-table,.nw-table tbody,.nw-table tr,.nw-table td{display:block;width:100%;}
+  .nw-table thead{display:none;}
+  .nw-table tr{border-bottom:2px solid var(--line);}
+  .nw-table td{border-bottom:1px solid var(--line);}
+}
+@media (max-width:400px){
+  .nw-cats{grid-template-columns:1fr;}
+  .nw-goods{grid-template-columns:1fr;}
+  .nw-cat__d{display:block;}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *{transition-duration:.01ms !important;animation-duration:.01ms !important;}
+}
+</style>
+</head>
+<body>
+<!-- ========== ПРОМО-ПОЛОСА ========== -->
+<div class="nw-promo">
+<div class="nw-wrap" style="padding:0;">
+<div class="nw-promo__grid">
+<div class="nw-promo__item" data-nw="t1"><span class="nw-promo__name">Имитация бруса, вагонка</span><span class="nw-promo__price">37 500 ₽/м³</span></div>
+<div class="nw-promo__item" data-nw="t2"><span class="nw-promo__name">Доска сухая строганная, доска пола, блок-хаус</span><span class="nw-promo__price">35 500 ₽/м³</span></div>
+<div class="nw-promo__item" data-nw="t3"><span class="nw-promo__name">Покраска пиломатериалов</span><span class="nw-promo__price">от 400 ₽</span></div>
+</div>
+</div>
+</div>
+<!-- ========== ШАПКА ========== -->
+<header class="nw-header">
+<div class="nw-wrap">
+<div class="nw-header__top">
+<a aria-label="NordWood — на главную" class="nw-logo" href="#top">
+<!-- логотип: подставьте /upload/CNext/29a/29a15926febc077d29ba1a9ca7e68f9e.png -->
+<svg aria-hidden="true" class="nw-logo__mark" viewbox="0 0 48 48">
+<path d="M24 3 L34 18 H29 L37 30 H30 L38 42 H10 L18 30 H11 L19 18 H14 Z" fill="#188b30"></path>
+<rect fill="#0e5c21" height="6" width="5" x="21.5" y="40"></rect>
+</svg>
+<span class="nw-logo__word" data-nw="t4"><span>Nord</span><span>Wood</span></span>
+<span class="nw-logo__slogan" data-nw="t5">Всё из дерева<br/>в одном месте</span>
+</a>
+<div class="nw-header__phones">
+<div class="nw-phone" data-nw="t6"><a href="tel:+79119230002">+7 (911) 923-00-02</a><span>База Разметелево</span></div>
+<div class="nw-phone" data-nw="t7"><a href="tel:+79119007795">+7 (911) 900-77-95</a><span>База Агалатово</span></div>
+</div>
+<div class="nw-header__soc">
+<a aria-label="Telegram" class="nw-soc" href="https://t.me/nordwood78" rel="noopener" target="_blank">
+<svg viewbox="0 0 24 24"><path d="M21.9 4.3 18.9 19c-.2 1-.8 1.3-1.7.8l-4.6-3.4-2.2 2.1c-.2.2-.5.5-1 .5l.3-4.7L18.3 6c.4-.3-.1-.5-.6-.2L6.9 12.6l-4.5-1.4c-1-.3-1-1 .2-1.4l17.6-6.8c.8-.3 1.5.2 1.7 1.3z"></path></svg>
+</a>
+<a aria-label="WhatsApp" class="nw-soc" href="https://api.whatsapp.com/send?phone=+79119230002" rel="noopener" target="_blank">
+<svg viewbox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm5.6 14.2c-.2.7-1.3 1.3-1.9 1.3-.5 0-1.1.2-3.6-.8-3-1.3-5-4.4-5.1-4.6-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.2c.1.2.1.4 0 .6l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.4 1.8 2.2 1.2 1.1 2.2 1.4 2.5 1.6.3.1.4.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2.1 1c.2.1.4.2.4.3.1.2.1.7-.1 1.4z"></path></svg>
+</a>
+<a aria-label="ВКонтакте" class="nw-soc" href="https://vk.com/pilomaterial_spb" rel="noopener" target="_blank">
+<svg viewbox="0 0 24 24"><path d="M12.8 17c-5 0-8.2-3.6-8.3-9.5h2.6c.1 4.4 2.1 6.2 3.6 6.6V7.5h2.4v3.7c1.5-.2 3-1.9 3.5-3.7h2.4c-.4 2.2-2 3.9-3.1 4.6 1.1.6 2.9 2.1 3.6 4.9h-2.6c-.5-1.7-1.9-3-3.8-3.2V17z"></path></svg>
+</a>
+<a aria-label="Проложить маршрут" class="nw-soc" href="https://yandex.ru/maps/?rtext=59.906764,30.667187" rel="noopener" target="_blank">
+<svg viewbox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"></path></svg>
+</a>
+</div>
+<button aria-expanded="false" aria-label="Меню" class="nw-burger" id="burger">
+<span></span><span></span><span></span>
+</button>
+</div>
+</div>
+<nav class="nw-nav" id="nav">
+<div class="nw-wrap" style="padding:0 24px;">
+<ul class="nw-nav__list">
+<li data-nw="t8"><a href="#catalog">Каталог</a></li>
+<li data-nw="t9"><a href="#hits">Хиты и цены</a></li>
+<li data-nw="t10"><a href="#calc">Калькулятор</a></li>
+<li data-nw="t11"><a href="#production">Производство</a></li>
+<li data-nw="t12"><a href="#grades">Сорта</a></li>
+<li data-nw="t13"><a href="#services">Покраска и дома</a></li>
+<li data-nw="t14"><a href="#delivery">Доставка</a></li>
+<li data-nw="t15"><a href="#b2b">Оптовикам</a></li>
+<li data-nw="t16"><a href="#faq">Вопросы</a></li>
+<li data-nw="t17"><a href="#contacts">Контакты</a></li>
+</ul>
+</div>
+</nav>
+</header>
+<!-- ========== ПЕРВЫЙ ЭКРАН ========== -->
+<section class="nw-hero" id="top">
+<div aria-hidden="true" class="nw-hero__bg" data-nw-bg="hero" style="--hero-photo:url('upload/hero-sklad.jpg')"></div>
+<div aria-hidden="true" class="nw-hero__veil"></div>
+<div class="nw-wrap">
+<div class="nw-hero__grid">
+<div>
+<div class="nw-eyebrow" data-nw="t18">Северный лес · сушка · строжка · доставка</div>
+<h1 data-nw="t19">Пиломатериалы <em>от производителя</em> в Санкт-Петербурге</h1>
+<p class="nw-hero__sub" data-nw="t20">
+          Заготавливаем лес в Вологодской и Архангельской области, сушим в австрийских камерах
+          Mühlböck + Vanicek, строгаем на Weinig Hydromat 22N и продаём напрямую со своих баз —
+          без посредников и наценки перекупщиков.
+        </p>
+<div class="nw-hero__cta" data-nw="t21">
+<a class="nw-btn nw-btn--primary" href="#request">Рассчитать заказ</a>
+<a class="nw-btn nw-btn--ghost" href="#hits">Смотреть цены</a>
+</div>
+<div class="nw-hero__marks" data-nw="t22">
+<span class="nw-mark">Влажность <b>12 ± 2 %</b></span>
+<span class="nw-mark">Длина до <b>6000 мм</b></span>
+<span class="nw-mark">Сорта <b>АВ / 1 / 2</b></span>
+<span class="nw-mark">Отгрузка <b>в день заказа</b></span>
+<span class="nw-mark">Работаем <b>с НДС и без</b></span>
+</div>
+</div>
+<div aria-hidden="true" class="nw-stack">
+<div class="nw-board" data-nw="t23"><span class="nw-board__label">28 × 126 × 6000 — доска пола</span><span class="nw-board__grade">АВ</span></div>
+<div class="nw-board" data-nw="t24"><span class="nw-board__label">18 × 146 × 6000 — имитация бруса</span><span class="nw-board__grade">АВ</span></div>
+<div class="nw-board" data-nw="t25"><span class="nw-board__label">25 × 150 × 6000 — доска обрезная</span><span class="nw-board__grade">1 сорт</span></div>
+<div class="nw-board" data-nw="t26"><span class="nw-board__label">150 × 150 × 6000 — брус</span><span class="nw-board__grade">1 сорт</span></div>
+<div class="nw-tag">
+<div class="nw-tag__t" data-nw="t27">Партия · камера №2</div>
+<div class="nw-tag__v" data-nw="t28">Сушка завершена<br/>W = 12 %</div>
+</div>
+</div>
+</div>
+</div>
+<div class="nw-facts">
+<div class="nw-wrap" style="padding:0;">
+<div class="nw-facts__grid">
+<div class="nw-fact"><div class="nw-fact__n" data-nw="t29">2</div><div class="nw-fact__d" data-nw="t30">базы отгрузки: Разметелево и Агалатово</div></div>
+<div class="nw-fact"><div class="nw-fact__n" data-nw="t31">27</div><div class="nw-fact__d" data-nw="t32">категорий в каталоге — от вагонки до утеплителя</div></div>
+<div class="nw-fact"><div class="nw-fact__n" data-nw="t33">4,9</div><div class="nw-fact__d" data-nw="t34">рейтинг компании в Яндексе</div></div>
+<div class="nw-fact"><div class="nw-fact__n" data-nw="t35">СПб + ЛО</div><div class="nw-fact__d" data-nw="t36">доставка манипулятором и тентом, регионы — по согласованию</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- ========== КАТАЛОГ ========== -->
+<section class="nw-section nw-section--paper" id="catalog">
+<div class="nw-wrap">
+<div class="nw-head">
+<div>
+<div class="nw-eyebrow" data-nw="t37">Каталог</div>
+<h2 class="nw-h2" data-nw="t38">Всё из дерева в одном месте</h2>
+</div>
+<p class="nw-lead" data-nw="t39" style="margin:0;max-width:44ch;">
+        27 разделов: отделочный погонаж, конструкционный лес, плиты, крепёж, утеплитель и защита древесины.
+        Собираете дом или баню — закрываете весь список в одной отгрузке.
+      </p>
+</div>
+<div class="nw-cats">
+<a class="nw-cat" href="https://nordwood78.ru/catalog/imitatsiya_brusa/"><img alt="" class="nw-cat__ico" data-nw-img="i1" src="https://nordwood78.ru/upload/resize_cache/iblock/28f/a3yahdjat7ew8ts0b5qkeu7tea1s8qde/60_60_0/imitatiabrusa.png"/><span data-nw="t40"><span class="nw-cat__n">Имитация бруса</span><span class="nw-cat__d">18×146, 22×196 мм, сорт АВ. Фасад и внутренняя отделка</span><span class="nw-cat__p">от 623 ₽/шт · 37 500 ₽/м³</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/doska_pola_shpuntovannaya/"><img alt="" class="nw-cat__ico" data-nw-img="i2" src="https://nordwood78.ru/upload/resize_cache/iblock/ab9/dhcfuimq863sx84yibkvcf602cpdzi1m/60_60_0/doskapola.png"/><span data-nw="t41"><span class="nw-cat__n">Доска пола шпунтованная</span><span class="nw-cat__d">28×126×6000, шпунт по всей длине, камерная сушка</span><span class="nw-cat__p">от 762 ₽/шт · 35 500 ₽/м³</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/vagonka_i_evrovagonka/"><img alt="" class="nw-cat__ico" data-nw-img="i3" src="https://nordwood78.ru/upload/resize_cache/iblock/94d/oeigkjzygx4io2oghiwh0vzjtpxgw3gg/60_60_0/vagonka.png"/><span data-nw="t42"><span class="nw-cat__n">Вагонка и евровагонка</span><span class="nw-cat__d">Хвоя, профиль «штиль» и классика, разные длины</span><span class="nw-cat__p">37 500 ₽/м³</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/vagonka_i_evrovagonka_iz_osiny/"><img alt="" class="nw-cat__ico" data-nw-img="i4" src="https://nordwood78.ru/upload/resize_cache/iblock/861/fqk6pgr40j7o7m0rbe7ji7r4p1e4p2f9/60_60_0/vagonka.png"/><span data-nw="t43"><span class="nw-cat__n">Вагонка из осины</span><span class="nw-cat__d">Для парной: не смолит и не обжигает при нагреве</span><span class="nw-cat__p">Цена по запросу</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/blok_khaus/"><img alt="" class="nw-cat__ico" data-nw-img="i5" src="https://nordwood78.ru/upload/resize_cache/iblock/19a/w8u1yr56ggl8j0tym40hs24pojst7fri/60_60_0/blokhaus.png"/><span data-nw="t44"><span class="nw-cat__n">Блок-хаус</span><span class="nw-cat__d">Имитация оцилиндрованного бревна для фасада</span><span class="nw-cat__p">35 500 ₽/м³</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/doska_sukhaya_strogannaya/"><img alt="" class="nw-cat__ico" data-nw-img="i6" src="https://nordwood78.ru/upload/resize_cache/iblock/0d7/0pgpb8o1mpfq2waxzspelvic75b9o1b6/60_60_0/doskaobreznaia.png"/><span data-nw="t45"><span class="nw-cat__n">Доска сухая строганная</span><span class="nw-cat__d">Калибр по всем плоскостям, точная геометрия</span><span class="nw-cat__p">35 500 ₽/м³</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/doska_obreznaya/"><img alt="" class="nw-cat__ico" data-nw-img="i7" src="https://nordwood78.ru/upload/resize_cache/iblock/2ec/hsu1ok06zb4z0luc2ng2i9vzdfzfmhne/60_60_0/doskaobreznaia.png"/><span data-nw="t46"><span class="nw-cat__n">Доска обрезная</span><span class="nw-cat__d">25×150, 50×150 мм, 1 и 2 сорт — обрешётка и каркас</span><span class="nw-cat__p">от 293 ₽/шт</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/brus/"><img alt="" class="nw-cat__ico" data-nw-img="i8" src="https://nordwood78.ru/upload/resize_cache/iblock/87b/bjq5fgeg6urrha7333ohnsktso46rx7e/60_60_0/brus.jpg"/><span data-nw="t47"><span class="nw-cat__n">Брус</span><span class="nw-cat__d">100×100, 150×150 мм, 1 сорт, длина 6 м</span><span class="nw-cat__p">от 2 768 ₽/шт</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/brus_kleenyy/"><img alt="" class="nw-cat__ico" data-nw-img="i9" src="https://nordwood78.ru/upload/resize_cache/iblock/6d0/z1rtgipaclw2ccinzn8qr34d3jw5gco6/60_60_0/bruskleenii.png"/><span data-nw="t48"><span class="nw-cat__n">Брус клеёный</span><span class="nw-cat__d">Стабильная геометрия, минимальная усадка</span><span class="nw-cat__p">Цена по запросу</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/brusok_sukhoy_strogannyy/"><img alt="" class="nw-cat__ico" data-nw-img="i10" src="https://nordwood78.ru/upload/resize_cache/iblock/8ce/t49jnp5f7j3vhqn9cxa8c0il3dx1yaqk/60_60_0/brusokstroganii.png"/><span data-nw="t49"><span class="nw-cat__n">Брусок сухой строганный</span><span class="nw-cat__d">20×40, 40×40, 50×50 мм — обрешётка и контррейка</span><span class="nw-cat__p">от 95 ₽/шт</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/terrasnaya_i_palubnaya_doska/"><img alt="" class="nw-cat__ico" data-nw-img="i11" src="https://nordwood78.ru/upload/resize_cache/iblock/59c/dg4hgiwun4cgqyp5svyw19x7fggteifl/60_60_0/terrasa.png"/><span data-nw="t50"><span class="nw-cat__n">Террасная и палубная доска</span><span class="nw-cat__d">Вельвет и гладкий профиль для улицы</span><span class="nw-cat__p">Цена по запросу</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/polok_iz_osiny/"><img alt="" class="nw-cat__ico" data-nw-img="i12" src="https://nordwood78.ru/upload/resize_cache/iblock/590/dt2ct15ad3vucsaiogc3ntm1x8rdivdp/60_60_0/poloc.jpeg"/><span data-nw="t51"><span class="nw-cat__n">Полок из осины</span><span class="nw-cat__d">Лежаки и скамьи для бани, шлифованные</span><span class="nw-cat__p">Цена по запросу</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/pogonazhnye_izdeliya/"><img alt="" class="nw-cat__ico" data-nw-img="i13" src="https://nordwood78.ru/upload/resize_cache/iblock/eff/db0udfsbyo9xm5y16efanldfgx8z1ltm/60_60_0/pogonazhnye.png"/><span data-nw="t52"><span class="nw-cat__n">Погонажные изделия</span><span class="nw-cat__d">Плинтус, наличник, раскладка, галтель</span><span class="nw-cat__p">Цена по запросу</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/mebelnyy_shchit/"><img alt="" class="nw-cat__ico" data-nw-img="i14" src="https://nordwood78.ru/upload/resize_cache/iblock/7e1/i2zllup29tfi33mzv38a05w7138x7mfs/60_60_0/20231027115035.png"/><span data-nw="t53"><span class="nw-cat__n">Мебельный щит</span><span class="nw-cat__d">Столешницы, полки, ступени из клеёного массива</span><span class="nw-cat__p">Цена по запросу</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/podokonniki_i_stupeni/"><img alt="" class="nw-cat__ico" data-nw-img="i15" src="https://nordwood78.ru/upload/resize_cache/iblock/ede/bv64a30hih3v2nyd4jllmzwi47njgcg6/60_60_0/20231027125511.png"/><span data-nw="t54"><span class="nw-cat__n">Подоконники и ступени</span><span class="nw-cat__d">Массив с готовой кромкой, под покраску</span><span class="nw-cat__p">Цена по запросу</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/dekorativnye_elementy/"><img alt="" class="nw-cat__ico" data-nw-img="i16" src="https://nordwood78.ru/upload/resize_cache/iblock/643/6873il0zebaay5jp62wevs7yy0x8w5up/60_60_0/elementpryamoynakladnoyazhurnyy.jpg"/><span data-nw="t55"><span class="nw-cat__n">Декоративные элементы</span><span class="nw-cat__d">Ажурные накладки, резные детали фасада</span><span class="nw-cat__p">Цена по запросу</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/fanera/"><img alt="" class="nw-cat__ico" data-nw-img="i17" src="https://nordwood78.ru/upload/resize_cache/iblock/7d5/wtr90dq8lg0jdba8uoaz68yu2h2xduyg/60_60_0/fanera.png"/><span data-nw="t56"><span class="nw-cat__n">Фанера</span><span class="nw-cat__d">ФК и ФСФ, шлифованная и ламинированная</span><span class="nw-cat__p">Цена по запросу</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/osb_tssp_sml_plity_/"><img alt="" class="nw-cat__ico" data-nw-img="i18" src="https://nordwood78.ru/upload/resize_cache/iblock/da8/t3zjc5cw4x1dbyd9h2ofn7ko86imz1hk/60_60_0/osb.png"/><span data-nw="t57"><span class="nw-cat__n">ОСБ, ЦСП, СМЛ плиты</span><span class="nw-cat__d">Обшивка каркаса, черновые полы, огнестойкие узлы</span><span class="nw-cat__p">Цена по запросу</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/uteplitel/"><img alt="" class="nw-cat__ico" data-nw-img="i19" src="https://nordwood78.ru/upload/resize_cache/iblock/cef/qe60cv0tf3s3ygrrnic8977ogcon5avf/60_60_0/uteplitel.png"/><span data-nw="t58"><span class="nw-cat__n">Утеплитель</span><span class="nw-cat__d">Каменная вата и плиты в размер стойки каркаса</span><span class="nw-cat__p">Цена по запросу</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/zashchita_drevesiny/"><img alt="" class="nw-cat__ico" data-nw-img="i20" src="https://nordwood78.ru/upload/resize_cache/iblock/027/ugyhgoewqtfc4425654jpw5q7b6k2wy3/60_60_0/zashchitadrevesiny.png"/><span data-nw="t59"><span class="nw-cat__n">Защита древесины</span><span class="nw-cat__d">Антисептики, масла, лазури, огнебиозащита</span><span class="nw-cat__p">Цена по запросу</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/krepezhi_i_fiksatory/"><img alt="" class="nw-cat__ico" data-nw-img="i21" src="https://nordwood78.ru/upload/resize_cache/iblock/338/6t1b20pq36t4qb58ontur2rsqvrlpnx7/60_60_0/krepezh.jpg"/><span data-nw="t60"><span class="nw-cat__n">Крепежи и фиксаторы</span><span class="nw-cat__d">Уголки, пластины, кляймеры для вагонки</span><span class="nw-cat__p">Цена по запросу</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/samorezy_i_gvozdi/"><img alt="" class="nw-cat__ico" data-nw-img="i22" src="https://nordwood78.ru/upload/resize_cache/iblock/803/0dsxtzgp7pvn9ssdsf2z4krb54lxmei0/60_60_0/samorezgmsht.jpg"/><span data-nw="t61"><span class="nw-cat__n">Саморезы и гвозди</span><span class="nw-cat__d">По дереву, кровельные, оцинкованные</span><span class="nw-cat__p">Цена по запросу</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/bani_bochki/"><img alt="" class="nw-cat__ico" data-nw-img="i23" src="https://nordwood78.ru/upload/resize_cache/iblock/600/dobfdhbmxo6e3g8173d2sg1s52q16fdi/60_60_0/banya.jpg"/><span data-nw="t62"><span class="nw-cat__n">Бани-бочки</span><span class="nw-cat__d">Готовые бани под ключ с доставкой и установкой</span><span class="nw-cat__p">Цена по запросу</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/toplivnye_brikety_i_drova/"><img alt="" class="nw-cat__ico" data-nw-img="i24" src="https://nordwood78.ru/upload/resize_cache/iblock/c44/v4tjjyo3t2x3iw71xpb97r4yp429fyd7/60_60_0/toplivniebriketi.png"/><span data-nw="t63"><span class="nw-cat__n">Брикеты и дрова</span><span class="nw-cat__d">Топливные брикеты, колотые дрова в упаковке</span><span class="nw-cat__p">Цена по запросу</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/ugol_drevesnyy/"><img alt="" class="nw-cat__ico" data-nw-img="i25" src="https://nordwood78.ru/upload/resize_cache/iblock/895/gqn759osk9ak9pkz51lbbpfqoy0nfcdw/60_60_0/photo720250206144419.jpg"/><span data-nw="t64"><span class="nw-cat__n">Уголь древесный</span><span class="nw-cat__d">Фасовка для мангала и гриля</span><span class="nw-cat__p">Цена по запросу</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/vagonka_nekonditsiya/"><img alt="" class="nw-cat__ico" data-nw-img="i26" src="https://nordwood78.ru/upload/resize_cache/iblock/c9c/hf0rt16x3skb5lgr0rcl3tmohksrecsz/60_60_0/vagonka.png"/><span data-nw="t65"><span class="nw-cat__n">Вагонка некондиция</span><span class="nw-cat__d">Со скидкой: для хозблоков, времянок, черновых работ</span><span class="nw-cat__p">Спецпредложение</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/prochee/"><img alt="" class="nw-cat__ico" data-nw-img="i27" src="https://nordwood78.ru/upload/resize_cache/iblock/7be/dwqy60slpu9f2r66ru9p2w263tlp9evn/60_60_0/procee.png"/><span data-nw="t66"><span class="nw-cat__n">Прочее</span><span class="nw-cat__d">Плёнки, мембраны и мелочи, которых не хватает на объекте</span><span class="nw-cat__p">Цена по запросу</span></span></a>
+<a class="nw-cat" href="https://nordwood78.ru/catalog/"><img alt="" class="nw-cat__ico" data-nw-img="i28" src="https://nordwood78.ru/upload/resize_cache/iblock/643/6873il0zebaay5jp62wevs7yy0x8w5up/60_60_0/elementpryamoynakladnoyazhurnyy.jpg"/><span data-nw="t67"><span class="nw-cat__n">Весь каталог →</span><span class="nw-cat__d">Полный прайс, остатки и характеристики на сайте</span><span class="nw-cat__p">27 разделов</span></span></a>
+</div>
+</div>
+</section>
+<!-- ========== ХИТЫ ========== -->
+<section class="nw-section" id="hits">
+<div class="nw-wrap">
+<div class="nw-head">
+<div>
+<div class="nw-eyebrow" data-nw="t68">Хиты продаж · цены со склада</div>
+<h2 class="nw-h2" data-nw="t69">Позиции, которые уезжают чаще всего</h2>
+</div>
+<p class="nw-lead" data-nw="t70" style="margin:0;max-width:40ch;">Цены указаны за штуку с учётом НДС. Остатки обновляются на складе ежедневно — уточните наличие перед выездом.</p>
+</div>
+<div class="nw-goods">
+<article class="nw-good">
+<div class="nw-good__badges" data-nw="t71"><span class="nw-badge">Хит</span></div>
+<div class="nw-good__img"><img alt="Доска пола 28×126×6000, сорт АВ" data-nw-img="i29" loading="lazy" src="https://nordwood78.ru/upload/iblock/9fc/1q9nerigukvhij9uq9mrc5rvatixq2fl/478ec146d0f211ec9a6abc8d012492e3.resize1.JPEG"/></div>
+<div class="nw-good__body">
+<div class="nw-good__n" data-nw="t72">Доска пола шпунтованная, сорт АВ</div>
+<div class="nw-good__dim" data-nw="t73">28 × 126 × 6000 мм</div>
+<div class="nw-good__stock" data-nw="t74">Много в наличии</div>
+<div class="nw-good__price" data-nw="t75">762 ₽ <span>/ шт</span></div>
+<a class="nw-btn nw-btn--primary nw-good__btn" data-nw="t76" href="#request">В заявку</a>
+</div>
+</article>
+<article class="nw-good">
+<div class="nw-good__badges" data-nw="t77"><span class="nw-badge">Хит</span></div>
+<div class="nw-good__img"><img alt="Имитация бруса 18×146×6000, сорт АВ" data-nw-img="i30" loading="lazy" src="https://nordwood78.ru/upload/iblock/35c/t2otc2jsu7kipusas9dvobotjq1t9np1/99269facd75d11ec9a728d6571438988.resize1.JPEG"/></div>
+<div class="nw-good__body">
+<div class="nw-good__n" data-nw="t78">Имитация бруса, сорт АВ</div>
+<div class="nw-good__dim" data-nw="t79">18 × 146 × 6000 мм</div>
+<div class="nw-good__stock" data-nw="t80">Много в наличии</div>
+<div class="nw-good__price" data-nw="t81">623 ₽ <span>/ шт</span></div>
+<a class="nw-btn nw-btn--primary nw-good__btn" data-nw="t82" href="#request">В заявку</a>
+</div>
+</article>
+<article class="nw-good">
+<div class="nw-good__badges" data-nw="t83"><span class="nw-badge">Хит</span></div>
+<div class="nw-good__img"><img alt="Брус 150×150×6000, 1 сорт" data-nw-img="i31" loading="lazy" src="https://nordwood78.ru/upload/iblock/297/v599hu7qgpuw1jp5c9r6d20k9grmmhco/a26d1e60_d6fc_11ea_8060_ecf4bb9237521ac880ca_e6a4_11ee_9cde_8dc7630afba5.resize1.JPEG"/></div>
+<div class="nw-good__body">
+<div class="nw-good__n" data-nw="t84">Брус, 1 сорт</div>
+<div class="nw-good__dim" data-nw="t85">150 × 150 × 6000 мм</div>
+<div class="nw-good__stock" data-nw="t86">Много в наличии</div>
+<div class="nw-good__price" data-nw="t87">2 768 ₽ <span>/ шт</span></div>
+<a class="nw-btn nw-btn--primary nw-good__btn" data-nw="t88" href="#request">В заявку</a>
+</div>
+</article>
+<article class="nw-good">
+<div class="nw-good__badges" data-nw="t89"><span class="nw-badge">Хит</span><span class="nw-badge nw-badge--adv">Советуем</span></div>
+<div class="nw-good__img"><img alt="Брусок 50×50×3000 сухой строганный" data-nw-img="i32" loading="lazy" src="https://nordwood78.ru/upload/iblock/35c/cfrdtvgdif1dpj4m2hwbe3zrt3vx2vkt/99269f98d75d11ec9a728d6571438988.resize1.JPEG"/></div>
+<div class="nw-good__body">
+<div class="nw-good__n" data-nw="t90">Брусок сухой строганный, сорт АВ</div>
+<div class="nw-good__dim" data-nw="t91">50 × 50 × 3000 мм</div>
+<div class="nw-good__stock" data-nw="t92">В наличии — 629 шт</div>
+<div class="nw-good__price" data-nw="t93">278 ₽ <span>/ шт</span></div>
+<a class="nw-btn nw-btn--primary nw-good__btn" data-nw="t94" href="#request">В заявку</a>
+</div>
+</article>
+<article class="nw-good">
+<div class="nw-good__badges" data-nw="t95"><span class="nw-badge">Хит</span></div>
+<div class="nw-good__img"><img alt="Доска 25×150×6000, 1 сорт обрезная" data-nw-img="i33" loading="lazy" src="https://nordwood78.ru/upload/iblock/2f1/qjnhx00u17sxavkdbinocxrp3n7se1tt/a26d1e67_d6fc_11ea_8060_ecf4bb9237526dd365f1_d75e_11ec_9a72_8d6571438988.resize1.JPEG"/></div>
+<div class="nw-good__body">
+<div class="nw-good__n" data-nw="t96">Доска обрезная, 1 сорт</div>
+<div class="nw-good__dim" data-nw="t97">25 × 150 × 6000 мм</div>
+<div class="nw-good__stock" data-nw="t98">Много в наличии</div>
+<div class="nw-good__price" data-nw="t99">461 ₽ <span>/ шт</span></div>
+<a class="nw-btn nw-btn--primary nw-good__btn" data-nw="t100" href="#request">В заявку</a>
+</div>
+</article>
+<article class="nw-good">
+<div class="nw-good__badges" data-nw="t101"><span class="nw-badge">Хит</span></div>
+<div class="nw-good__img"><img alt="Доска 25×150×6000, 2 сорт обрезная" data-nw-img="i34" loading="lazy" src="https://nordwood78.ru/upload/iblock/d15/q5t2tinayi9g0uxsutul7o1zoitmb52l/a26d1e69_d6fc_11ea_8060_ecf4bb9237526dd365f3_d75e_11ec_9a72_8d6571438988.resize1.JPEG"/></div>
+<div class="nw-good__body">
+<div class="nw-good__n" data-nw="t102">Доска обрезная, 2 сорт</div>
+<div class="nw-good__dim" data-nw="t103">25 × 150 × 6000 мм</div>
+<div class="nw-good__stock" data-nw="t104">Много в наличии</div>
+<div class="nw-good__price" data-nw="t105">293 ₽ <span>/ шт</span></div>
+<a class="nw-btn nw-btn--primary nw-good__btn" data-nw="t106" href="#request">В заявку</a>
+</div>
+</article>
+<article class="nw-good">
+<div class="nw-good__badges" data-nw="t107"><span class="nw-badge">Хит</span><span class="nw-badge nw-badge--new">Новинка</span></div>
+<div class="nw-good__img"><img alt="Брусок 20×40×3000 сухой строганный" data-nw-img="i35" loading="lazy" src="https://nordwood78.ru/upload/iblock/c07/menieeg3a0dbr5cqj5qflrg0tuc9lye0/99269f97d75d11ec9a728d6571438988.resize1.JPEG"/></div>
+<div class="nw-good__body">
+<div class="nw-good__n" data-nw="t108">Брусок сухой строганный, сорт АВ</div>
+<div class="nw-good__dim" data-nw="t109">20 × 40 × 3000 мм</div>
+<div class="nw-good__stock" data-nw="t110">В наличии — 27 шт</div>
+<div class="nw-good__price" data-nw="t111">95 ₽ <span>/ шт</span></div>
+<a class="nw-btn nw-btn--primary nw-good__btn" data-nw="t112" href="#request">В заявку</a>
+</div>
+</article>
+<article class="nw-good">
+<div class="nw-good__badges" data-nw="t113"><span class="nw-badge">Хит</span><span class="nw-badge nw-badge--adv">Советуем</span></div>
+<div class="nw-good__img"><img alt="Брусок 40×40×3000 сухой строганный" data-nw-img="i36" loading="lazy" src="https://nordwood78.ru/upload/iblock/9c0/eh8orpxt158mk6rl3xxlvu5sa96tmg5g/99269f99d75d11ec9a728d6571438988.resize1.JPEG"/></div>
+<div class="nw-good__body">
+<div class="nw-good__n" data-nw="t114">Брусок сухой строганный, сорт АВ</div>
+<div class="nw-good__dim" data-nw="t115">40 × 40 × 3000 мм</div>
+<div class="nw-good__stock" data-nw="t116">В наличии — 643 шт</div>
+<div class="nw-good__price" data-nw="t117">178 ₽ <span>/ шт</span></div>
+<a class="nw-btn nw-btn--primary nw-good__btn" data-nw="t118" href="#request">В заявку</a>
+</div>
+</article>
+<article class="nw-good">
+<div class="nw-good__badges" data-nw="t119"><span class="nw-badge">Хит</span></div>
+<div class="nw-good__img"><img alt="Имитация бруса 22×196×6000, сорт АВ" data-nw-img="i37" loading="lazy" src="https://nordwood78.ru/upload/iblock/6a5/85phazsh74e02mcc2mqmn133zq6s2kp8/99269fb1d75d11ec9a728d6571438988.resize1.JPEG"/></div>
+<div class="nw-good__body">
+<div class="nw-good__n" data-nw="t120">Имитация бруса, сорт АВ</div>
+<div class="nw-good__dim" data-nw="t121">22 × 196 × 6000 мм</div>
+<div class="nw-good__stock" data-nw="t122">Много в наличии</div>
+<div class="nw-good__price" data-nw="t123">999 ₽ <span>/ шт</span></div>
+<a class="nw-btn nw-btn--primary nw-good__btn" data-nw="t124" href="#request">В заявку</a>
+</div>
+</article>
+<article class="nw-good">
+<div class="nw-good__badges" data-nw="t125"><span class="nw-badge">Хит</span><span class="nw-badge nw-badge--adv">Советуем</span></div>
+<div class="nw-good__img"><img alt="Доска 50×150×6000, 1 сорт обрезная" data-nw-img="i38" loading="lazy" src="https://nordwood78.ru/upload/iblock/20e/iaxe66ujdzver5g1ysafjhe1vzvp070d/a26d1e62_d6fc_11ea_8060_ecf4bb9237526dd365ec_d75e_11ec_9a72_8d6571438988.resize1.JPEG"/></div>
+<div class="nw-good__body">
+<div class="nw-good__n" data-nw="t126">Доска обрезная, 1 сорт</div>
+<div class="nw-good__dim" data-nw="t127">50 × 150 × 6000 мм</div>
+<div class="nw-good__stock" data-nw="t128">Много в наличии</div>
+<div class="nw-good__price" data-nw="t129">925 ₽ <span>/ шт</span></div>
+<a class="nw-btn nw-btn--primary nw-good__btn" data-nw="t130" href="#request">В заявку</a>
+</div>
+</article>
+</div>
+<p class="nw-lead" data-nw="t131" style="margin-top:26px;">
+      Нужен объём под смету? Пришлём прайс в Excel с ценами за м³ и остатками по обеим базам —
+      <a href="#request" style="color:var(--green);font-weight:600;">запросить прайс</a>.
+    </p>
+</div>
+</section>
+<!-- ========== КАЛЬКУЛЯТОР ========== -->
+<section class="nw-section nw-section--dark" id="calc">
+<div class="nw-wrap">
+<div class="nw-head">
+<div>
+<div class="nw-eyebrow" data-nw="t132">Калькулятор</div>
+<h2 class="nw-h2" data-nw="t133">Посчитайте объём и сумму до звонка</h2>
+</div>
+<p class="nw-lead" data-nw="t134" style="margin:0;max-width:40ch;">Выберите позицию и укажите, чем считаете: площадью стены, кубами или штуками. Остальное посчитается само.</p>
+</div>
+<div class="nw-calc">
+<div class="nw-calc__form">
+<div class="nw-field">
+<label data-nw="t135" for="calcProduct">Позиция</label>
+<select id="calcProduct"></select>
+</div>
+<div class="nw-field">
+<label data-nw="t136">Считаем по</label>
+<div aria-label="Единица расчёта" class="nw-seg" role="group">
+<button aria-pressed="true" data-mode="area" data-nw="t137" type="button">Площади, м²</button>
+<button aria-pressed="false" data-mode="vol" data-nw="t138" type="button">Объёму, м³</button>
+<button aria-pressed="false" data-mode="pcs" data-nw="t139" type="button">Штукам</button>
+</div>
+</div>
+<div class="nw-field">
+<label for="calcValue" id="calcValueLabel">Площадь покрытия, м²</label>
+<input id="calcValue" inputmode="decimal" min="0" step="0.1" type="number" value="40"/>
+</div>
+<p class="nw-calc__note" data-nw="t140">
+          Расчёт по номинальным размерам и полезной ширине профиля. Запас на подрезку 5–7 % закладывайте отдельно —
+          менеджер проверит раскрой перед отгрузкой.
+        </p>
+</div>
+<div class="nw-calc__out">
+<div class="nw-out__row" data-nw="t141"><span class="nw-out__k">Количество</span><span class="nw-out__v" id="outPcs">—</span></div>
+<div class="nw-out__row" data-nw="t142"><span class="nw-out__k">Объём</span><span class="nw-out__v" id="outVol">—</span></div>
+<div class="nw-out__row" data-nw="t143"><span class="nw-out__k">Площадь покрытия</span><span class="nw-out__v" id="outArea">—</span></div>
+<div class="nw-out__row" data-nw="t144"><span class="nw-out__k">Цена за м³</span><span class="nw-out__v" id="outM3">—</span></div>
+<div class="nw-out__row nw-out__total" data-nw="t145"><span class="nw-out__k">Итого</span><span class="nw-out__v" id="outSum">—</span></div>
+<a class="nw-btn nw-btn--primary" data-nw="t146" href="#request" style="width:100%;margin-top:22px;">Отправить расчёт менеджеру</a>
+</div>
+</div>
+</div>
+</section>
+<!-- ========== ПРОИЗВОДСТВО ========== -->
+<section class="nw-section nw-section--dark" id="production" style="padding-top:0;">
+<div class="nw-wrap">
+<div class="nw-head" style="margin-top:0;">
+<div>
+<div class="nw-eyebrow" data-nw="t147">Путь доски</div>
+<h2 class="nw-h2" data-nw="t148">От делянки в Вологде до вашего объекта</h2>
+</div>
+<p class="nw-lead" data-nw="t149" style="margin:0;max-width:40ch;">Полный цикл внутри компании: мы отвечаем за качество на каждом переделе, а не перепродаём чужие партии.</p>
+</div>
+<div class="nw-steps">
+<div class="nw-step">
+<div class="nw-step__n" data-nw="t150">01 · ЗАГОТОВКА</div>
+<h3 data-nw="t151">Северный лес</h3>
+<p data-nw="t152">Заготавливаем в Вологодской и Архангельской области. Медленный рост даёт плотную древесину с узкими годовыми кольцами. Брёвна хранятся на складах в специальных условиях до распила.</p>
+</div>
+<div class="nw-step">
+<div class="nw-step__n" data-nw="t153">02 · СУШКА</div>
+<h3 data-nw="t154">Камеры Mühlböck + Vanicek</h3>
+<p data-nw="t155">Австрийские сушильные камеры с мягким режимом: доска доходит до 12 ± 2 % влажности без внутренних трещин и коробления. Каждая партия маркируется по камере и режиму.</p>
+</div>
+<div class="nw-step">
+<div class="nw-step__n" data-nw="t156">03 · СТРОЖКА</div>
+<h3 data-nw="t157">Weinig Hydromat 22N</h3>
+<p data-nw="t158">Четырёхсторонний станок держит геометрию по всей длине: шпунт садится без подгонки, а плоскости не требуют шлифовки перед покраской.</p>
+</div>
+<div class="nw-step">
+<div class="nw-step__n" data-nw="t159">04 · ОТГРУЗКА</div>
+<h3 data-nw="t160">Две базы под Петербургом</h3>
+<p data-nw="t161">Разметелево и Агалатово: самовывоз в день оплаты или доставка манипулятором. Пачки упаковываются в плёнку — материал не намокнет в дороге.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ========== СОРТА ========== -->
+<section class="nw-section nw-section--paper" id="grades">
+<div class="nw-wrap">
+<div class="nw-head">
+<div>
+<div class="nw-eyebrow" data-nw="t162">Сортность</div>
+<h2 class="nw-h2" data-nw="t163">Какой сорт брать под вашу задачу</h2>
+</div>
+<p class="nw-lead" data-nw="t164" style="margin:0;max-width:42ch;">Переплата за высокий сорт там, где его не видно, — самая частая ошибка в смете. Ниже — простое правило выбора.</p>
+</div>
+<table class="nw-table">
+<thead>
+<tr><th data-nw="t165">Сорт</th><th data-nw="t166">Что допускается</th><th data-nw="t167">Где применять</th><th data-nw="t168">Пример позиции</th></tr>
+</thead>
+<tbody>
+<tr>
+<td data-nw="t169"><span class="nw-grade">АВ</span><br/>Отделочный</td>
+<td data-nw="t170">Здоровые сросшиеся сучки, ровный тон, без обзола и выпадающих сучков. Поверхность под покраску без подготовки.</td>
+<td data-nw="t171">Внутренняя отделка, фасад, потолок, чистовой пол, парная.</td>
+<td data-nw="t172">Имитация бруса 18×146, доска пола 28×126, брусок 50×50</td>
+</tr>
+<tr>
+<td data-nw="t173"><span class="nw-grade">1 сорт</span><br/>Конструкционный</td>
+<td data-nw="t174">Сучки в норме по ГОСТ, возможны небольшие смоляные кармашки. Геометрия выдержана, прочность максимальная.</td>
+<td data-nw="t175">Стропильная система, лаги, каркас, обрешётка под мягкую кровлю.</td>
+<td data-nw="t176">Брус 150×150, доска 50×150, доска 25×150</td>
+</tr>
+<tr>
+<td data-nw="t177"><span class="nw-grade">2 сорт</span><br/>Черновой</td>
+<td data-nw="t178">Более крупные сучки, допускается обзол и синева, не влияющая на прочность.</td>
+<td data-nw="t179">Опалубка, черновой пол, леса, временные конструкции, хозблок.</td>
+<td data-nw="t180">Доска 25×150 2 сорт, вагонка некондиция</td>
+</tr>
+</tbody>
+</table>
+<div class="nw-split" style="margin-top:32px;">
+<div class="nw-service">
+<h3 data-nw="t181">Как проверить материал при приёмке</h3>
+<ul class="nw-list">
+<li data-nw="t182">Замерьте влагомером 3–4 доски из разных мест пачки: для сухой доски норма 12 ± 2 %.</li>
+<li data-nw="t183">Приложите две доски друг к другу — просвет по всей длине показывает нарушение геометрии.</li>
+<li data-nw="t184">Проверьте торцы на кольцевые трещины: их даёт быстрая, «жёсткая» сушка.</li>
+<li data-nw="t185">Соберите замок шпунта насухую: правильный профиль садится от руки, без киянки.</li>
+</ul>
+<a class="nw-btn nw-btn--ghost" data-nw="t186" href="https://nordwood78.ru/help/warranty/" rel="noopener" target="_blank">Условия гарантии</a>
+</div>
+<div class="nw-service">
+<h3 data-nw="t187">Как хранить до монтажа</h3>
+<ul class="nw-list">
+<li data-nw="t188">Держите пачку в упаковке до начала работ, вскрывайте по мере монтажа.</li>
+<li data-nw="t189">Складируйте на прокладках, на 15–20 см от земли, под навесом и без прямого солнца.</li>
+<li data-nw="t190">Дайте материалу 2–3 суток «привыкнуть» к влажности помещения перед чистовой отделкой.</li>
+<li data-nw="t191">Открытые торцы фасадных элементов обработайте антисептиком сразу после реза.</li>
+</ul>
+<a class="nw-btn nw-btn--ghost" data-nw="t192" href="#services">Заказать покраску на производстве</a>
+</div>
+</div>
+</div>
+</section>
+<!-- ========== УСЛУГИ ========== -->
+<section class="nw-section" id="services">
+<div class="nw-wrap">
+<div class="nw-head">
+<div>
+<div class="nw-eyebrow" data-nw="t193">Услуги</div>
+<h2 class="nw-h2" data-nw="t194">Не только материал</h2>
+</div>
+</div>
+<div class="nw-split">
+<div class="nw-service">
+<h3 data-nw="t195">Покраска на производстве</h3>
+<div class="nw-service__price" data-nw="t196">от 400 ₽ · цена зависит от профиля и количества слоёв</div>
+<p data-nw="t197" style="color:var(--ink-soft);">Красим до монтажа, в цеху: с четырёх сторон, включая торцы и замок шпунта — там, где кисть на объекте не достанет. Материал приезжает готовым к монтажу.</p>
+<ul class="nw-list">
+<li data-nw="t198">Антисептики, лазури, масла и укрывные составы на выбор</li>
+<li data-nw="t199">Выкрас образца перед запуском партии — цвет утверждаете вы</li>
+<li data-nw="t200">Равномерный слой без подтёков и полос от валика</li>
+<li data-nw="t201">Сушка и упаковка в плёнку, погрузка без слипания</li>
+</ul>
+<a class="nw-btn nw-btn--primary" data-nw="t202" href="#request">Рассчитать покраску</a>
+</div>
+<div class="nw-service">
+<h3 data-nw="t203">Дома и бани-бочки</h3>
+<div class="nw-service__price" data-nw="t204">комплект материалов или объект под ключ</div>
+<p data-nw="t205" style="color:var(--ink-soft);">Соберём комплект на дом или баню по вашему проекту: брус, стропильная система, обрешётка, отделка и крепёж — одной поставкой, с проверкой спецификации.</p>
+<ul class="nw-list">
+<li data-nw="t206">Проверим смету подрядчика и уберём лишние позиции</li>
+<li data-nw="t207">Разобьём поставку по этапам: коробка → кровля → отделка</li>
+<li data-nw="t208">Бани-бочки в готовом виде с доставкой и установкой</li>
+<li data-nw="t209">Поставка на несколько объектов по одному договору</li>
+</ul>
+<a class="nw-btn nw-btn--primary" data-nw="t210" href="#request">Собрать комплект</a>
+</div>
+</div>
+</div>
+</section>
+<!-- ========== ДОСТАВКА ========== -->
+<section class="nw-section nw-section--dark" id="delivery">
+<div class="nw-wrap">
+<div class="nw-head">
+<div>
+<div class="nw-eyebrow" data-nw="t211">Отгрузка</div>
+<h2 class="nw-h2" data-nw="t212">Две базы, самовывоз и доставка</h2>
+</div>
+<p class="nw-lead" data-nw="t213" style="margin:0;max-width:40ch;">Выбирайте базу по логистике: Разметелево — юго-восток и Мурманское шоссе, Агалатово — север и Приозерское направление.</p>
+</div>
+<div class="nw-bases">
+<div class="nw-base">
+<h3 data-nw="t214">База Разметелево</h3>
+<div class="nw-base__addr" data-nw="t215">Ленинградская обл., Всеволожский р-н, д. Разметелево, Виркинский пер., д. 1</div>
+<a class="nw-base__phone" data-nw="t216" href="tel:+79119230002">+7 (911) 923-00-02</a>
+<p class="nw-hint" data-nw="t217">Заезд через территорию газовой заправки или шиномонтажа, далее до ангара с надписью «Пиломатериалы NordWood78».</p>
+<a class="nw-btn nw-btn--light" data-nw="t218" href="https://yandex.ru/maps/?rtext=59.906764,30.667187" rel="noopener" style="margin-top:18px;" target="_blank">Проложить маршрут</a>
+</div>
+<div class="nw-base">
+<h3 data-nw="t219">База Агалатово</h3>
+<div class="nw-base__addr" data-nw="t220">Приозерское шоссе, 61Г, д. Агалатово</div>
+<a class="nw-base__phone" data-nw="t221" href="tel:+79119007795">+7 (911) 900-77-95</a>
+<p class="nw-hint" data-nw="t222">Удобно для объектов на Выборгском и Приозерском направлениях: отгрузка без заезда в город.</p>
+<a class="nw-btn nw-btn--light" data-nw="t223" href="https://yandex.ru/maps/?text=Приозерское%20шоссе%2061Г%20Агалатово" rel="noopener" style="margin-top:18px;" target="_blank">Проложить маршрут</a>
+</div>
+</div>
+<div class="nw-delivery">
+<div class="nw-delivery__i">
+<h4 data-nw="t224">Санкт-Петербург и область</h4>
+<p data-nw="t225">Доставка тентом и манипулятором. Стоимость зависит от объёма и адреса — считаем при оформлении заказа.</p>
+</div>
+<div class="nw-delivery__i">
+<h4 data-nw="t226">Регионы России</h4>
+<p data-nw="t227">Отправляем в ближайшие регионы по согласованию: фурой на объект или до терминала транспортной компании.</p>
+</div>
+<div class="nw-delivery__i">
+<h4 data-nw="t228">Самовывоз</h4>
+<p data-nw="t229">Отгружаем в день оплаты в рабочее время. Погрузка нашей техникой, пачки упаковываются в плёнку.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ========== B2B ========== -->
+<section class="nw-section nw-section--paper" id="b2b">
+<div class="nw-wrap">
+<div class="nw-b2b">
+<div>
+<div class="nw-eyebrow" data-nw="t230">Оптовикам и подрядчикам</div>
+<h2 class="nw-h2" data-nw="t231">Приглашаем к взаимовыгодному сотрудничеству</h2>
+<p class="nw-lead" data-nw="t232">
+          Работаем с НДС и без НДС, даём отсрочку по договору и держим цену на срок действия спецификации.
+          Для строительных бригад, магазинов и производителей домокомплектов — отдельная сетка скидок от объёма.
+        </p>
+<a class="nw-btn nw-btn--primary" data-nw="t233" href="#request">Запросить оптовый прайс</a>
+</div>
+<div class="nw-b2b__cards">
+<div class="nw-b2b__card" data-nw="t234"><b>С НДС и без</b><span>Полный пакет закрывающих документов, работа по договору поставки.</span></div>
+<div class="nw-b2b__card" data-nw="t235"><b>Скидка от объёма</b><span>Индивидуальная цена от куба, фиксация на период стройки.</span></div>
+<div class="nw-b2b__card" data-nw="t236"><b>Свои сечения</b><span>Строгаем нестандартный профиль под спецификацию проекта.</span></div>
+<div class="nw-b2b__card" data-nw="t237"><b>График поставок</b><span>Резерв партии на складе и отгрузка по этапам работ.</span></div>
+</div>
+</div>
+</div>
+</section>
+<!-- ========== ОТЗЫВЫ ========== -->
+<section class="nw-section" id="reviews">
+<div class="nw-wrap">
+<div class="nw-head">
+<div>
+<div class="nw-eyebrow" data-nw="t238">Отзывы</div>
+<h2 class="nw-h2" data-nw="t239">Что говорят покупатели</h2>
+</div>
+</div>
+<div class="nw-reviews">
+<article class="nw-review">
+<div class="nw-stars" data-nw="t240">★★★★★</div>
+<p data-nw="t241">Брали имитацию бруса на фасад дома 8×10. Доска ровная, шпунт садится без подгонки, брака в пачках практически не было. Отгрузили в день оплаты.</p>
+<div class="nw-review__a" data-nw="t242">Алексей, частный дом, Всеволожский район</div>
+</article>
+<article class="nw-review">
+<div class="nw-stars" data-nw="t243">★★★★★</div>
+<p data-nw="t244">Заказывали доску пола и брусок на обрешётку. Понравилось, что сразу посчитали объём по площади комнат и подсказали, где можно взять сорт ниже без потери качества.</p>
+<div class="nw-review__a" data-nw="t245">Марина, ремонт загородного дома</div>
+</article>
+<article class="nw-review">
+<div class="nw-stars" data-nw="t246">★★★★★</div>
+<p data-nw="t247">Работаем как подрядчик, берём брус и доску партиями. Документы в порядке, цена держится по спецификации, поставки под график — вопросов к менеджерам нет.</p>
+<div class="nw-review__a" data-nw="t248">Строительная бригада, СПб</div>
+</article>
+</div>
+<div class="nw-rating">
+<div class="nw-rating__n" data-nw="t249">4,9</div>
+<div>
+<div data-nw="t250" style="font-weight:600;color:#efe9dc;">Рейтинг организации в Яндексе</div>
+<div data-nw="t251" style="font-size:13.5px;color:#a9a196;">Оценки покупателей по обеим базам · отзывы можно прочитать на карточке компании</div>
+</div>
+<a class="nw-btn nw-btn--light" data-nw="t252" href="https://nordwood78.ru/otzyvy/" rel="noopener" style="margin-left:auto;" target="_blank">Все отзывы</a>
+</div>
+</div>
+</section>
+<!-- ========== FAQ ========== -->
+<section class="nw-section nw-section--paper" id="faq">
+<div class="nw-wrap">
+<div class="nw-head">
+<div>
+<div class="nw-eyebrow" data-nw="t253">Вопросы</div>
+<h2 class="nw-h2" data-nw="t254">Что спрашивают чаще всего</h2>
+</div>
+</div>
+<div class="nw-faq">
+<div class="nw-faq__i">
+<button class="nw-faq__q" data-nw="t255" type="button">Чем сухая строганная доска отличается от обрезной?</button>
+<div class="nw-faq__a" data-nw="t256">Обрезная доска — материал естественной влажности с распила: она дешевле, но даст усадку и «поведёт» геометрию. Сухая строганная проходит камерную сушку до 12 ± 2 % и калибровку на четырёхстороннем станке, поэтому подходит для чистовых работ и не меняет размер после монтажа.</div>
+</div>
+<div class="nw-faq__i">
+<button class="nw-faq__q" data-nw="t257" type="button">Какая минимальная сумма заказа и есть ли скидки?</button>
+<div class="nw-faq__a" data-nw="t258">Отпускаем и в розницу, и партиями. Для оптовых покупателей действует система скидок от объёма, работаем с НДС и без НДС. Точные условия под ваш объём менеджер посчитает по спецификации.</div>
+</div>
+<div class="nw-faq__i">
+<button class="nw-faq__q" data-nw="t259" type="button">Можно приехать и посмотреть материал перед покупкой?</button>
+<div class="nw-faq__a" data-nw="t260">Да, приезжайте на любую из баз — в Разметелево или Агалатово. Покажем пачки, дадим замерить влагомером и собрать замок вручную. Отгрузка возможна сразу после осмотра.</div>
+</div>
+<div class="nw-faq__i">
+<button class="nw-faq__q" data-nw="t261" type="button">Как считается доставка?</button>
+<div class="nw-faq__a" data-nw="t262">Стоимость зависит от базы отгрузки, адреса, объёма и способа разгрузки (тент или манипулятор). Назовите адрес и примерный объём — назовём цену до оформления заказа. В регионы отправляем по согласованию.</div>
+</div>
+<div class="nw-faq__i">
+<button class="nw-faq__q" data-nw="t263" type="button">Красите ли вы материал перед отгрузкой?</button>
+<div class="nw-faq__a" data-nw="t264">Да, покраска на производстве от 400 ₽. Красим с четырёх сторон, включая торцы и шпунт, делаем выкрас образца для утверждения цвета. Это дешевле и качественнее покраски на объекте.</div>
+</div>
+<div class="nw-faq__i">
+<button class="nw-faq__q" data-nw="t265" type="button">Что означает сорт АВ?</button>
+<div class="nw-faq__a" data-nw="t266">Это объединённый отделочный сорт: допускаются здоровые сросшиеся сучки, но не допускаются выпадающие сучки, обзол и трещины на лицевой стороне. Оптимальный вариант для отделки под покраску и для парной.</div>
+</div>
+<div class="nw-faq__i">
+<button class="nw-faq__q" data-nw="t267" type="button">Работаете ли вы с юридическими лицами?</button>
+<div class="nw-faq__a" data-nw="t268">Работаем и с юрлицами, и с физлицами: по договору поставки, с полным пакетом закрывающих документов, с НДС и без НДС. Цену можно зафиксировать на период действия спецификации.</div>
+</div>
+<div class="nw-faq__i">
+<button class="nw-faq__q" data-nw="t269" type="button">Есть ли гарантия и что делать при браке?</button>
+<div class="nw-faq__a" data-nw="t270">Гарантия на товар действует по условиям, опубликованным на сайте. Если в пачке обнаружен брак — зафиксируйте его при приёмке и свяжитесь с менеджером: заменим позиции или пересчитаем стоимость партии.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ========== ЗАЯВКА ========== -->
+<section class="nw-section nw-section--dark" id="request">
+<div class="nw-wrap">
+<div class="nw-cta">
+<div>
+<div class="nw-eyebrow" data-nw="t271">Заявка</div>
+<h2 class="nw-h2" data-nw="t272">Посчитаем ваш заказ и назовём цену</h2>
+<p class="nw-lead" data-nw="t273">
+          Пришлите спецификацию, список позиций или просто размеры дома — соберём расчёт с ценами,
+          объёмом и стоимостью доставки. Если удобнее голосом, позвоните на ближайшую базу.
+        </p>
+<ul class="nw-list" style="margin-top:24px;">
+<li data-nw="t274">Отвечаем в рабочее время, обычно в течение часа</li>
+<li data-nw="t275">Проверим спецификацию и уберём лишние позиции</li>
+<li data-nw="t276">Подскажем, где можно взять сорт ниже без потери качества</li>
+<li data-nw="t277">Зарезервируем материал на складе на время согласования</li>
+</ul>
+<div style="display:flex;gap:24px;flex-wrap:wrap;margin-top:26px;">
+<div class="nw-phone" data-nw="t278"><a href="tel:+79119230002" style="color:#efe9dc;">+7 (911) 923-00-02</a><span style="color:#a9a196;">База Разметелево</span></div>
+<div class="nw-phone" data-nw="t279"><a href="tel:+79119007795" style="color:#efe9dc;">+7 (911) 900-77-95</a><span style="color:#a9a196;">База Агалатово</span></div>
+</div>
+</div>
+<form class="nw-form" id="leadForm" novalidate="">
+<div class="nw-form__row">
+<div class="nw-field">
+<label data-nw="t280" for="fName">Как к вам обращаться</label>
+<input id="fName" name="name" placeholder="Имя" required="" type="text"/>
+</div>
+<div class="nw-field">
+<label data-nw="t281" for="fPhone">Телефон</label>
+<input id="fPhone" name="phone" placeholder="+7 (___) ___-__-__" required="" type="tel"/>
+</div>
+</div>
+<div class="nw-field">
+<label data-nw="t282" for="fType">Что нужно</label>
+<select id="fType" name="type">
+<option>Имитация бруса / вагонка</option>
+<option>Доска пола шпунтованная</option>
+<option>Доска обрезная / брус</option>
+<option>Брусок сухой строганный</option>
+<option>Блок-хаус, террасная доска</option>
+<option>Покраска пиломатериалов</option>
+<option>Комплект на дом или баню</option>
+<option>Оптовая поставка</option>
+</select>
+</div>
+<div class="nw-field">
+<label data-nw="t283" for="fText">Объём, размеры или спецификация</label>
+<textarea id="fText" name="comment" placeholder="Например: имитация бруса 18×146 на фасад 120 м², доставка в Кудрово"></textarea>
+</div>
+<label class="nw-agree">
+<input id="fAgree" required="" type="checkbox"/>
+<span data-nw="t284">Согласен на обработку персональных данных в соответствии с <a href="https://nordwood78.ru/include/politica.php" rel="noopener" style="color:var(--green);" target="_blank">политикой конфиденциальности</a></span>
+</label>
+<button class="nw-btn nw-btn--primary" data-nw="t285" style="width:100%;" type="submit">Отправить заявку</button>
+<div class="nw-form__ok" id="formOk">Заявка отправлена. Менеджер перезвонит в рабочее время и подтвердит наличие.</div>
+</form>
+</div>
+</div>
+</section>
+<!-- ========== КОНТАКТЫ ========== -->
+<section id="contacts">
+<iframe class="nw-map" loading="lazy" src="https://yandex.ru/map-widget/v1/?um=constructor%3Aa03d8154e331340feea9b0ab309bf66713ea3fff765b144038e8fc4a69dc3752&amp;source=constructor" title="Карта баз NordWood78"></iframe>
+</section>
+<!-- ========== ПОДВАЛ ========== -->
+<footer class="nw-footer">
+<div class="nw-wrap">
+<div class="nw-footer__grid">
+<div>
+<div class="nw-logo" style="margin-bottom:16px;">
+<svg aria-hidden="true" class="nw-logo__mark" viewbox="0 0 48 48">
+<path d="M24 3 L34 18 H29 L37 30 H30 L38 42 H10 L18 30 H11 L19 18 H14 Z" fill="#188b30"></path>
+<rect fill="#0e5c21" height="6" width="5" x="21.5" y="40"></rect>
+</svg>
+<span class="nw-logo__word" data-nw="t286"><span>Nord</span><span>Wood</span></span>
+<span class="nw-logo__slogan" data-nw="t287">Всё из дерева<br/>в одном месте</span>
+</div>
+<p data-nw="t288" style="font-size:14px;max-width:34ch;">Производство и продажа пиломатериалов в Санкт-Петербурге и Ленинградской области с 2018 года.</p>
+</div>
+<div>
+<h4 data-nw="t289">Каталог</h4>
+<ul>
+<li data-nw="t290"><a href="https://nordwood78.ru/catalog/imitatsiya_brusa/">Имитация бруса</a></li>
+<li data-nw="t291"><a href="https://nordwood78.ru/catalog/doska_pola_shpuntovannaya/">Доска пола</a></li>
+<li data-nw="t292"><a href="https://nordwood78.ru/catalog/vagonka_i_evrovagonka/">Вагонка</a></li>
+<li data-nw="t293"><a href="https://nordwood78.ru/catalog/doska_obreznaya/">Доска обрезная</a></li>
+<li data-nw="t294"><a href="https://nordwood78.ru/catalog/brus/">Брус</a></li>
+<li data-nw="t295"><a href="https://nordwood78.ru/catalog/">Все разделы</a></li>
+</ul>
+</div>
+<div>
+<h4 data-nw="t296">Компания</h4>
+<ul>
+<li data-nw="t297"><a href="https://nordwood78.ru/company/">О компании</a></li>
+<li data-nw="t298"><a href="https://nordwood78.ru/company/news/">Новости</a></li>
+<li data-nw="t299"><a href="https://nordwood78.ru/help/payment/">Условия оплаты</a></li>
+<li data-nw="t300"><a href="https://nordwood78.ru/help/warranty/">Гарантия на товар</a></li>
+<li data-nw="t301"><a href="https://nordwood78.ru/dostavka">Доставка</a></li>
+<li data-nw="t302"><a href="https://nordwood78.ru/otzyvy/">Отзывы</a></li>
+</ul>
+</div>
+<div>
+<h4 data-nw="t303">Контакты</h4>
+<ul>
+<li data-nw="t304"><a href="tel:+79119230002" style="font-family:var(--f-mono);font-weight:700;color:#efe9dc;">+7 (911) 923-00-02</a><br/><span style="font-size:12.5px;">База Разметелево · Виркинский пер., д. 1</span></li>
+<li data-nw="t305" style="margin-top:12px;"><a href="tel:+79119007795" style="font-family:var(--f-mono);font-weight:700;color:#efe9dc;">+7 (911) 900-77-95</a><br/><span style="font-size:12.5px;">База Агалатово · Приозерское ш., 61Г</span></li>
+<li data-nw="t306" style="margin-top:12px;"><a href="mailto:info@nordwood78.ru">info@nordwood78.ru</a></li>
+</ul>
+<div class="nw-header__soc" style="display:flex;margin-top:16px;">
+<a aria-label="Telegram" class="nw-soc" href="https://t.me/nordwood78" rel="noopener" style="border-color:var(--line-dark);color:var(--pine);" target="_blank">
+<svg viewbox="0 0 24 24"><path d="M21.9 4.3 18.9 19c-.2 1-.8 1.3-1.7.8l-4.6-3.4-2.2 2.1c-.2.2-.5.5-1 .5l.3-4.7L18.3 6c.4-.3-.1-.5-.6-.2L6.9 12.6l-4.5-1.4c-1-.3-1-1 .2-1.4l17.6-6.8c.8-.3 1.5.2 1.7 1.3z"></path></svg>
+</a>
+<a aria-label="WhatsApp" class="nw-soc" href="https://api.whatsapp.com/send?phone=+79119230002" rel="noopener" style="border-color:var(--line-dark);color:var(--pine);" target="_blank">
+<svg viewbox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm5.6 14.2c-.2.7-1.3 1.3-1.9 1.3-.5 0-1.1.2-3.6-.8-3-1.3-5-4.4-5.1-4.6-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.2c.1.2.1.4 0 .6l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.4 1.8 2.2 1.2 1.1 2.2 1.4 2.5 1.6.3.1.4.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2.1 1c.2.1.4.2.4.3.1.2.1.7-.1 1.4z"></path></svg>
+</a>
+<a aria-label="ВКонтакте" class="nw-soc" href="https://vk.com/pilomaterial_spb" rel="noopener" style="border-color:var(--line-dark);color:var(--pine);" target="_blank">
+<svg viewbox="0 0 24 24"><path d="M12.8 17c-5 0-8.2-3.6-8.3-9.5h2.6c.1 4.4 2.1 6.2 3.6 6.6V7.5h2.4v3.7c1.5-.2 3-1.9 3.5-3.7h2.4c-.4 2.2-2 3.9-3.1 4.6 1.1.6 2.9 2.1 3.6 4.9h-2.6c-.5-1.7-1.9-3-3.8-3.2V17z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+<div class="nw-footer__bottom" data-nw="t307">
+<span>2026 © NordWood78 · Пиломатериалы от производителя</span>
+<span>Цены на странице не являются публичной офертой. Уточняйте актуальную стоимость у менеджера.</span>
+</div>
+</div>
+</footer>
+<a class="nw-btn nw-btn--primary nw-fab" data-nw="t308" href="tel:+79119230002">Позвонить: +7 (911) 923-00-02</a>
+<script>
+(function(){
+  'use strict';
+
+  /* ---------- мобильное меню ---------- */
+  var burger = document.getElementById('burger');
+  var nav = document.getElementById('nav');
+  burger.addEventListener('click', function(){
+    var open = nav.classList.toggle('is-open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  nav.addEventListener('click', function(e){
+    if(e.target.tagName === 'A'){ nav.classList.remove('is-open'); burger.setAttribute('aria-expanded','false'); }
+  });
+
+  /* ---------- FAQ ---------- */
+  document.querySelectorAll('.nw-faq__q').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      btn.parentElement.classList.toggle('is-open');
+    });
+  });
+
+  /* ---------- Калькулятор ----------
+     t, w — сечение в мм; l — длина в мм; cover — полезная ширина (для профиля со шпунтом)
+  ------------------------------------ */
+  var PRODUCTS = [
+    {n:'Доска пола шпунтованная 28×126×6000, АВ', t:28,  w:126, l:6000, cover:118, price:762},
+    {n:'Имитация бруса 18×146×6000, АВ',          t:18,  w:146, l:6000, cover:136, price:623},
+    {n:'Имитация бруса 22×196×6000, АВ',          t:22,  w:196, l:6000, cover:185, price:999},
+    {n:'Брус 150×150×6000, 1 сорт',               t:150, w:150, l:6000, cover:150, price:2768},
+    {n:'Доска обрезная 25×150×6000, 1 сорт',      t:25,  w:150, l:6000, cover:150, price:461},
+    {n:'Доска обрезная 25×150×6000, 2 сорт',      t:25,  w:150, l:6000, cover:150, price:293},
+    {n:'Доска обрезная 50×150×6000, 1 сорт',      t:50,  w:150, l:6000, cover:150, price:925},
+    {n:'Брусок 50×50×3000, АВ строганный',        t:50,  w:50,  l:3000, cover:50,  price:278},
+    {n:'Брусок 40×40×3000, АВ строганный',        t:40,  w:40,  l:3000, cover:40,  price:178},
+    {n:'Брусок 20×40×3000, АВ строганный',        t:20,  w:40,  l:3000, cover:40,  price:95}
+  ];
+
+  var sel = document.getElementById('calcProduct');
+  var val = document.getElementById('calcValue');
+  var valLabel = document.getElementById('calcValueLabel');
+  var mode = 'area';
+
+  PRODUCTS.forEach(function(p, i){
+    var o = document.createElement('option');
+    o.value = i; o.textContent = p.n;
+    sel.appendChild(o);
+  });
+
+  var LABELS = {area:'Площадь покрытия, м²', vol:'Объём, м³', pcs:'Количество, шт'};
+  var DEFAULTS = {area:40, vol:2, pcs:50};
+
+  function nf(x, d){
+    return x.toLocaleString('ru-RU', {minimumFractionDigits:d, maximumFractionDigits:d});
+  }
+
+  function calc(){
+    var p = PRODUCTS[sel.value|0];
+    var v = parseFloat(val.value);
+    if(!p || !isFinite(v) || v <= 0){
+      ['outPcs','outVol','outArea','outM3','outSum'].forEach(function(id){
+        document.getElementById(id).textContent = '—';
+      });
+      return;
+    }
+
+    var volPiece  = (p.t/1000) * (p.w/1000) * (p.l/1000);      // м³ в одной штуке
+    var areaPiece = (p.cover/1000) * (p.l/1000);                // м² покрытия одной штукой
+    var pcs;
+
+    if(mode === 'area')      pcs = Math.ceil(v / areaPiece);
+    else if(mode === 'vol')  pcs = Math.ceil(v / volPiece);
+    else                     pcs = Math.ceil(v);
+
+    var vol  = pcs * volPiece;
+    var area = pcs * areaPiece;
+    var sum  = pcs * p.price;
+    var m3   = p.price / volPiece;
+
+    document.getElementById('outPcs').textContent  = nf(pcs,0) + ' шт';
+    document.getElementById('outVol').textContent  = nf(vol,3) + ' м³';
+    document.getElementById('outArea').textContent = nf(area,2) + ' м²';
+    document.getElementById('outM3').textContent   = nf(Math.round(m3),0) + ' ₽';
+    document.getElementById('outSum').textContent  = nf(Math.round(sum),0) + ' ₽';
+  }
+
+  document.querySelectorAll('.nw-seg button').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.nw-seg button').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+      b.setAttribute('aria-pressed','true');
+      mode = b.dataset.mode;
+      valLabel.textContent = LABELS[mode];
+      val.value = DEFAULTS[mode];
+      val.step = (mode === 'pcs') ? '1' : '0.1';
+      calc();
+    });
+  });
+
+  sel.addEventListener('change', calc);
+  val.addEventListener('input', calc);
+  calc();
+
+  /* ---------- маска телефона ---------- */
+  var phone = document.getElementById('fPhone');
+  phone.addEventListener('input', function(){
+    var d = phone.value.replace(/\D/g,'').replace(/^8/,'7').replace(/^([^7])/,'7$1').slice(0,11);
+    var out = '+7';
+    if(d.length > 1) out += ' (' + d.slice(1,4);
+    if(d.length >= 5) out += ') ' + d.slice(4,7);
+    if(d.length >= 8) out += '-' + d.slice(7,9);
+    if(d.length >= 10) out += '-' + d.slice(9,11);
+    phone.value = out;
+  });
+
+  /* ---------- отправка формы (заглушка) ----------
+     Подключите обработчик: fetch('/local/ajax/lead.php', {method:'POST', body:new FormData(form)})
+  ------------------------------------------------- */
+  var form = document.getElementById('leadForm');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('fName');
+    var agree = document.getElementById('fAgree');
+    if(!name.value.trim()){ name.focus(); return; }
+    if(phone.value.replace(/\D/g,'').length < 11){ phone.focus(); return; }
+    if(!agree.checked){ agree.focus(); return; }
+    document.getElementById('formOk').classList.add('is-visible');
+    form.querySelector('button[type="submit"]').textContent = 'Заявка принята';
+  });
+})();
+</script>
+<script src="cms/editor.js?v=1" defer></script>
+</body>
+</html>

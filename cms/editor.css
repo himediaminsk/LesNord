@@ -1,0 +1,41 @@
+/* NW Admin — панель правки поверх сайта */
+.nwadm{
+  position:fixed;right:16px;bottom:16px;z-index:9999;
+  display:flex;align-items:center;gap:10px;
+  background:#17211b;color:#efe9dc;padding:10px 14px;border-radius:6px;
+  box-shadow:0 14px 34px rgba(0,0,0,.36);
+  font:500 14px/1.2 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+}
+.nwadm.is-dirty{box-shadow:0 0 0 2px #188b30,0 14px 34px rgba(0,0,0,.36);}
+.nwadm__btn{
+  border:1px solid #33413a;background:#1f2b23;color:#efe9dc;
+  padding:9px 14px;border-radius:4px;cursor:pointer;font:inherit;
+}
+.nwadm__btn:hover:not(:disabled){background:#2a3a30;}
+.nwadm__btn:disabled{opacity:.45;cursor:default;}
+.nwadm__btn--main{background:#188b30;border-color:#188b30;color:#fff;}
+.nwadm__btn--main:hover{background:#0e5c21;}
+.nwadm__count{font-size:12.5px;color:#a9a196;white-space:nowrap;}
+.nwadm__link{color:#e7d3ae;text-decoration:none;font-size:13px;border-bottom:1px dashed rgba(231,211,174,.5);}
+.nwadm__link:hover{color:#fff;}
+
+/* подсветка редактируемых мест */
+.nwadm-on [data-nw]{outline:1px dashed rgba(24,139,48,.55);outline-offset:2px;cursor:text;}
+.nwadm-on [data-nw]:hover{outline-color:#188b30;background:rgba(24,139,48,.07);}
+.nwadm-on [data-nw]:focus{outline:2px solid #188b30;background:rgba(24,139,48,.1);}
+.nwadm-on [data-nw-img],
+.nwadm-on [data-nw-bg]{outline:2px dashed rgba(166,58,30,.75);outline-offset:-4px;cursor:pointer;}
+.nwadm-on [data-nw-img]:hover,
+.nwadm-on [data-nw-bg]:hover{outline-color:#a63a1e;}
+.nwadm-loading{opacity:.45;transition:opacity .2s ease;}
+
+.nwadm__toast{
+  position:fixed;right:16px;bottom:78px;z-index:9999;
+  background:#188b30;color:#fff;padding:11px 16px;border-radius:4px;
+  font:500 14px/1.2 -apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  box-shadow:0 10px 24px rgba(0,0,0,.3);
+}
+
+@media (max-width:640px){
+  .nwadm{left:12px;right:12px;bottom:12px;justify-content:space-between;flex-wrap:wrap;}
+}
